@@ -5,6 +5,12 @@ class Text {
         this.height = game.height;
     }
 
+    drawText(msg, x, y, size, colour) {
+        this.ctx.font = `${size}pt sans-serif`;
+        this.ctx.fillStyle = colour;
+        this.ctx.fillText(msg, x, y);
+    }
+
     drawBigMessage(msg, colour) {
         this.ctx.font = '60pt sans-serif';
         this.ctx.fillStyle = colour;

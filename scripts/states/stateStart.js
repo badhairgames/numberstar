@@ -19,6 +19,7 @@ class StateStart extends GameState {
     draw() {
         this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, '#FF77BB');
         this.game.gfx.text.drawBigMessage('Settings', '#880044');
+        this.game.gfx.ui.drawRoundButton('1', 30, 30, 20);
     }
     
     teardown() {
