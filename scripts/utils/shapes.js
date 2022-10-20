@@ -11,10 +11,11 @@ class Shapes {
     }
 
     drawCircle(x, y, r, fill) {
-        this.game.ctx.beginPath();
+        const circle = new Path2D();
+        circle.arc(x, y, r, 0, 2 * Math.PI);
         this.game.ctx.fillStyle = fill;
-        this.game.ctx.arc(x, y, r, 0, 2 * Math.PI);
-        this.game.ctx.fill();
+        this.game.ctx.fill(circle);
+        return circle;
     }
 }
 
