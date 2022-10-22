@@ -8,7 +8,7 @@ class StateStart extends GameState {
 
     setup() {
         this.clickEvent = (e) => {
-            this.game.changeState(this.game.statePlay);
+        //    this.game.changeState(this.game.statePlay);
         };
 
         this.numberCount = 12;
@@ -17,7 +17,9 @@ class StateStart extends GameState {
         const startY = 50;
 
         for (let i = 0; i < this.numberCount; i++) {
-            this.numberButtons.push(new NumberButton(this.game, startX + (i * startX * 2), startY, i+1));
+            const button = new NumberButton(this.game, startX + (i * startX * 2), startY, i+1);
+            button.setup();
+            this.numberButtons.push(button);
         }
         
         document.body.addEventListener('pointerdown', this.clickEvent);
@@ -37,6 +39,9 @@ class StateStart extends GameState {
     
     teardown() {
         document.body.removeEventListener('pointerdown', this.clickEvent);
+        for (let i = 0; i < this.numberCount; i++) {
+            this.numberButtons[i].teardown();
+        }
     }
 }
 
