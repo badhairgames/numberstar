@@ -1,9 +1,18 @@
 import { GameState } from "./gameState.js";
-import { NumberButton } from "../ui/numberbutton.js";
+import { SelectNumbers } from "../ui/selectNumbers.js";
+import { SelectOperations } from "../ui/selectOperations.js";
+import { RectButton } from "../ui/rectButton.js";
 
 class StateStart extends GameState {
     constructor(game) {
         super(game);
+        this.startX = 10;
+        this.startY = 10;
+        this.buttonRadius = 40;
+        this.gap = 10;
+
+        this.numbers = new SelectNumbers(this.game, this.startX + this.buttonRadius, this.startY + this.buttonRadius);
+        this.operations = new SelectOperations(this.game, this.startX + this.buttonRadius, this.startY + this.buttonRadius + this.numbers.height + this.numbers.gap);
     }
 
     setup() {
@@ -11,37 +20,40 @@ class StateStart extends GameState {
         //    this.game.changeState(this.game.statePlay);
         };
 
-        this.numberCount = 12;
-        this.numberButtons = [];
-        const startX = 50;
-        const startY = 50;
+        this.numbers.setup();
+        this.operations.setup();
 
-        for (let i = 0; i < this.numberCount; i++) {
-            const button = new NumberButton(this.game, startX + (i * startX * 2), startY, i+1);
-            button.setup();
-            this.numberButtons.push(button);
-        }
-        
-        document.body.addEventListener('pointerdown', this.clickEvent);
+        this.button = new RectButton(
+            this.game,
+            this.startX + (this.numbers.width / 2),
+            this.startY + this.numbers.height + this.gap + this.operations.height + this.gap + this.buttonRadius,
+            this.numbers.width,
+            this.buttonRadius * 2,
+            () => {
+                this.game.changeState(this.game.statePlay);
+            });
+        this.button.content = 'START';
+        this.button.setup();
     }
 
     update(elapsed) {
+        this.numbers.update(elapsed);
+        this.operations.update(elapsed);
+        this.button.update(elapsed);
     }
 
     draw() {
         this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, '#FF77BB');
-        this.game.gfx.text.drawBigMessage('Settings', '#880044');
-
-        for (let i = 0; i < this.numberCount; i++) {
-            this.numberButtons[i].draw();
-        }
+        this.numbers.draw();
+        this.operations.draw();
+        this.button.draw();
     }
     
     teardown() {
         document.body.removeEventListener('pointerdown', this.clickEvent);
-        for (let i = 0; i < this.numberCount; i++) {
-            this.numberButtons[i].teardown();
-        }
+        this.numbers.teardown();
+        this.operations.teardown();
+        this.button.teardown();
     }
 }
 
