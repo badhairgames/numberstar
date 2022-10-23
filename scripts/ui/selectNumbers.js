@@ -1,36 +1,51 @@
 import { NumberButton } from "./numberButton.js";
 
 class SelectNumbers {
-    constructor(game) {
+    get width() { return (this.columns * this.numberButtons[0].size * 2) + (this.gap * (this.columns - 1)); }
+    get height() { return (this.rows * this.numberButtons[0].size * 2) + (this.gap * (this.rows - 1)); }
+    get rows() { return this.numberCount / this.columns; }
+
+    constructor(game, startX, startY) {
         this.game = game;
         this.numberCount = 12;
         this.numberButtons = [];
         this.columns = 4;
-
-        const startX = 50;
-        const startY = 50;
+        this.startX = startX;
+        this.startY = startY;
+        this.gap = 10;
 
         let x = startX;
         let y = startY;
-        let count = 0;
 
         for (let i = 0; i < this.numberCount; i++) {
-            if (count >= this.columns) {
-                x = startX;
-                y += (startY * 2);
-                count = 0;
-            }
-
+            x = this.startX;
+            y = this.startY;
             const button = new NumberButton(this.game, x, y, i+1);
-            button.setup();
             this.numberButtons.push(button);
-            count++;
-            x += (startX * 2);
         }
 
     }
 
     setup() {
+        let x = this.startX;
+        let y = this.startY;
+        let count = 0;
+        let size = this.numberButtons[0].size;
+
+        for (let i = 0; i < this.numberCount; i++) {
+            if (count >= this.columns) {
+                x = this.startX;
+                y += (size * 2) + this.gap;
+                count = 0;
+            }
+
+            const button = this.numberButtons[i];
+            button.x = x;
+            button.y = y;
+            button.setup();
+            count++;
+            x += (size * 2) + this.gap;
+        }
     }
 
     update(elapsed) {

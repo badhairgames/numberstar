@@ -4,10 +4,11 @@ class Shapes {
     }
 
     drawRect(x, y, w, h, fill) {
-        this.game.ctx.beginPath();
+        const rect = new Path2D();
+        rect.rect(x, y, w, h);
         this.game.ctx.fillStyle = fill;
-        this.game.ctx.fillRect(x, y, w, h);
-        this.game.ctx.fill();
+        this.game.ctx.fill(rect);
+        return rect;
     }
 
     drawCircle(x, y, r, fill) {
