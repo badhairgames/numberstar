@@ -25,4 +25,4 @@ class OperationButton extends RoundButton {
     }
 }
 
-export { NumberButton };
+export { OperationButton };
