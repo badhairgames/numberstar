@@ -1,10 +1,10 @@
 import { RoundButton } from "./roundButton.js";
 
-class NumberButton extends RoundButton {
-    constructor(game, x, y, number) {
+class OperationButton extends RoundButton {
+    constructor(game, x, y, symbol) {
         super(game, x, y);
-        this.content = number;
-        this.colour = '#BB0088';
+        this.content = symbol;
+        this.colour = '#00BB88';
         this.selectedColour = '#008844';
     }
 

@@ -1,5 +1,5 @@
 import { GameState } from "./gameState.js";
-import { NumberButton } from "../ui/numberbutton.js";
+import { SelectNumbers } from "../ui/selectNumbers.js";
 
 class StateStart extends GameState {
     constructor(game) {
@@ -11,37 +11,21 @@ class StateStart extends GameState {
         //    this.game.changeState(this.game.statePlay);
         };
 
-        this.numberCount = 12;
-        this.numberButtons = [];
-        const startX = 50;
-        const startY = 50;
-
-        for (let i = 0; i < this.numberCount; i++) {
-            const button = new NumberButton(this.game, startX + (i * startX * 2), startY, i+1);
-            button.setup();
-            this.numberButtons.push(button);
-        }
-        
-        document.body.addEventListener('pointerdown', this.clickEvent);
+        this.numbers = new SelectNumbers(this.game);
     }
 
     update(elapsed) {
+        this.numbers.update(elapsed);
     }
 
     draw() {
         this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, '#FF77BB');
-        this.game.gfx.text.drawBigMessage('Settings', '#880044');
-
-        for (let i = 0; i < this.numberCount; i++) {
-            this.numberButtons[i].draw();
-        }
+        this.numbers.draw();
     }
     
     teardown() {
         document.body.removeEventListener('pointerdown', this.clickEvent);
-        for (let i = 0; i < this.numberCount; i++) {
-            this.numberButtons[i].teardown();
-        }
+        this.numbers.teardown();
     }
 }
 
