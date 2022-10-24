@@ -11,8 +11,8 @@ class RectButton {
         this.cy = y;
         this.x = x - (this.width / 2);
         this.y = y - (this.height / 2);
-        this.colour = '#BB0088';
-        this.selectedColour = '#FF44CC';
+        this.colour = 'rgba(0,0,0,0.2)';
+        this.selectedColour = '#BB0088';
         this.active = false;
         this.content = '';
         this.Shapes = new Shapes(game);
@@ -37,7 +37,6 @@ class RectButton {
 
     draw() {
         const colour = this.active ? this.selectedColour : this.colour;
-        debugger;
         this.Shapes.drawRect(this.x, this.y, this.width, this.height, colour);
         this.Text.drawCenteredText(this.content, this.cx, this.cy, this.height / 2, '#ffffff', 'bold');
     }

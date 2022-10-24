@@ -4,6 +4,8 @@ import { SelectOperations } from "../ui/selectOperations.js";
 import { RectButton } from "../ui/rectButton.js";
 
 class StateStart extends GameState {
+    get isValid() { return this.numbers.isValid && this.operations.isValid; }
+
     constructor(game) {
         super(game);
         this.startX = 10;
@@ -16,10 +18,6 @@ class StateStart extends GameState {
     }
 
     setup() {
-        this.clickEvent = (e) => {
-        //    this.game.changeState(this.game.statePlay);
-        };
-
         this.numbers.setup();
         this.operations.setup();
 
@@ -30,13 +28,17 @@ class StateStart extends GameState {
             this.numbers.width,
             this.buttonRadius * 2,
             () => {
-                this.game.changeState(this.game.statePlay);
+                if (this.isValid) {
+                    this.game.changeState(this.game.statePlay);
+                }
             });
         this.button.content = 'START';
         this.button.setup();
     }
 
     update(elapsed) {
+        this.button.active = this.isValid;
+
         this.numbers.update(elapsed);
         this.operations.update(elapsed);
         this.button.update(elapsed);
@@ -50,7 +52,11 @@ class StateStart extends GameState {
     }
     
     teardown() {
-        document.body.removeEventListener('pointerdown', this.clickEvent);
+        this.game.selectedNumbers.length = 0;
+        this.game.selectedOperations.length = 0;
+        this.game.selectedNumbers.push(...this.numbers.getSelectedNumbers());
+        this.game.selectedOperations.push(...this.operations.getSelectedOperations());
+
         this.numbers.teardown();
         this.operations.teardown();
         this.button.teardown();

@@ -4,6 +4,7 @@ class SelectNumbers {
     get width() { return (this.columns * this.numberButtons[0].size * 2) + (this.gap * (this.columns - 1)); }
     get height() { return (this.rows * this.numberButtons[0].size * 2) + (this.gap * (this.rows - 1)); }
     get rows() { return this.numberCount / this.columns; }
+    get isValid() { return this.numberButtons.some(b => b.active); }
 
     constructor(game, startX, startY) {
         this.game = game;
@@ -24,6 +25,9 @@ class SelectNumbers {
             this.numberButtons.push(button);
         }
 
+        if (!this.isValid) {
+            this.numberButtons[1].active = true;
+        }
     }
 
     setup() {
@@ -61,6 +65,14 @@ class SelectNumbers {
         for (let i = 0; i < this.numberCount; i++) {
             this.numberButtons[i].teardown();
         }
+    }
+
+    getSelectedNumbers() {
+        const result = [];
+        for (let i = 0; i < this.numberCount; i++) {
+            if (this.numberButtons[i].active) result.push(i + 1);
+        }
+        return result;
     }
 }
 

@@ -4,7 +4,7 @@ class SelectOperations {
     get width() { return (this.columns * this.operationButtons[0].size * 2) + (this.gap * (this.columns - 1)); }
     get height() { return (this.rows * this.operationButtons[0].size * 2) + (this.gap * (this.rows - 1)); }
     get rows() { return this.operations.length / this.columns; }
-
+    get isValid() { return this.operationButtons.some(b => b.active); }
 
     constructor(game, startX, startY) {
         this.game = game;
@@ -25,6 +25,9 @@ class SelectOperations {
             this.operationButtons.push(button);
         }
 
+        if (!this.isValid) {
+            this.operationButtons[2].active = true;
+        }
     }
 
     setup() {
@@ -62,6 +65,14 @@ class SelectOperations {
         for (let i = 0; i < this.operations.length; i++) {
             this.operationButtons[i].teardown();
         }
+    }
+
+    getSelectedOperations() {
+        const result = [];
+        for (let i = 0; i < this.operations.length; i++) {
+            if (this.operationButtons[i].active) result.push(this.operations[i]);
+        }
+        return result;
     }
 }
 
