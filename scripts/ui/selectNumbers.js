@@ -62,6 +62,14 @@ class SelectNumbers {
             this.numberButtons[i].teardown();
         }
     }
+
+    getSelectedNumbers() {
+        const result = [];
+        for (let i = 0; i < this.numberCount; i++) {
+            if (this.numberButtons[i].active) result.push(i + 1);
+        }
+        return result;
+    }
 }
 
 export { SelectNumbers };

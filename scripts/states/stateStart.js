@@ -16,10 +16,6 @@ class StateStart extends GameState {
     }
 
     setup() {
-        this.clickEvent = (e) => {
-        //    this.game.changeState(this.game.statePlay);
-        };
-
         this.numbers.setup();
         this.operations.setup();
 
@@ -50,7 +46,11 @@ class StateStart extends GameState {
     }
     
     teardown() {
-        document.body.removeEventListener('pointerdown', this.clickEvent);
+        this.game.selectedNumbers.length = 0;
+        this.game.selectedOperations.length = 0;
+        this.game.selectedNumbers.push(...this.numbers.getSelectedNumbers());
+        this.game.selectedOperations.push(...this.operations.getSelectedOperations());
+
         this.numbers.teardown();
         this.operations.teardown();
         this.button.teardown();

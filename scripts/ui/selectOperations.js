@@ -63,6 +63,14 @@ class SelectOperations {
             this.operationButtons[i].teardown();
         }
     }
+
+    getSelectedOperations() {
+        const result = [];
+        for (let i = 0; i < this.operations.length; i++) {
+            if (this.operationButtons[i].active) result.push(this.operations[i]);
+        }
+        return result;
+    }
 }
 
 export { SelectOperations };

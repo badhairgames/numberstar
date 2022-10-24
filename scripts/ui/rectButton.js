@@ -37,7 +37,6 @@ class RectButton {
 
     draw() {
         const colour = this.active ? this.selectedColour : this.colour;
-        debugger;
         this.Shapes.drawRect(this.x, this.y, this.width, this.height, colour);
         this.Text.drawCenteredText(this.content, this.cx, this.cy, this.height / 2, '#ffffff', 'bold');
     }
