@@ -11,8 +11,8 @@ class RectButton {
         this.cy = y;
         this.x = x - (this.width / 2);
         this.y = y - (this.height / 2);
-        this.colour = '#BB0088';
-        this.selectedColour = '#FF44CC';
+        this.colour = 'rgba(0,0,0,0.2)';
+        this.selectedColour = '#BB0088';
         this.active = false;
         this.content = '';
         this.Shapes = new Shapes(game);
