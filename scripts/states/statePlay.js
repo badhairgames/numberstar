@@ -2,18 +2,16 @@ import { SelectChoices } from '../ui/selectChoices.js';
 import { GameState } from './gameState.js';
 
 class StatePlay extends GameState {
-    get currentQuestion() {
-        return `${this.number1} ${this.operation} ${this.number2}`;
-    }
-
     constructor(game) {
         super(game);
         this.number1 = 0;
         this.number2 = 0;
         this.operation = '';
+        this.currentQuestion = '';
         this.answer = 0;
         this.choices = [];
-
+        this.answered = false;
+ 
         this.x = this.game.width / 2;
         this.y = this.game.height / 4;
         this.questionSize = this.y;
@@ -33,14 +31,34 @@ class StatePlay extends GameState {
         this.createChoices();
         this.buttons = new SelectChoices(this.game, this.choices, this.answer, this.x, this.y + (this.questionSize * 0.75));
         this.buttons.setup();
+        this.setCurrentQuestion();
     }
 
     update(elapsed) {
         this.buttons.update(elapsed);
+
+        if (this.buttons.answered && !this.answered) {
+            this.buttons.teardown();
+            this.answered = true;
+        }
+
+        if (this.answered) {
+            this.answered = false;    
+            this.timer = setTimeout(() => {
+                this.createQuestion();
+                this.createAnswer();
+                this.createChoices();
+                this.buttons = new SelectChoices(this.game, this.choices, this.answer, this.x, this.y + (this.questionSize * 0.75));
+                this.buttons.setup();
+                this.setCurrentQuestion();
+                clearTimeout(this.timer);
+            }, 100);
+        }
     }
 
     draw() {
         this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, '#FFBB77');
+
         this.game.gfx.text.drawCenteredText(
             this.currentQuestion,
             this.x,
@@ -67,6 +85,10 @@ class StatePlay extends GameState {
             this.number1 = this.number2;
             this.number2 = tmp;
         }
+    }
+
+    setCurrentQuestion() {
+        this.currentQuestion = `${this.number1} ${this.operation} ${this.number2}`;
     }
 
     createAnswer() {

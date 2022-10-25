@@ -16,6 +16,7 @@ class SelectChoices {
         this.startX = startX;
         this.startY = startY;
         this.gap = 10;
+        this.answered = false;
 
         let x = startX;
         let y = startY;
@@ -27,6 +28,8 @@ class SelectChoices {
             button.colour = '#BB7733';
             button.selectedColour = button.colour;
             button.callback = () => {
+                this.answered = true;
+
                 if (button.content === this.answer) {
                     button.colour = '#00BB00';
                     button.selectedColour = button.colour;
