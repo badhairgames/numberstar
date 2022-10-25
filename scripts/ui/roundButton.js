@@ -2,11 +2,12 @@ import { Shapes } from "../utils/shapes.js";
 import { Text } from "../utils/text.js";
 
 class RoundButton {
-    constructor(game, x, y) {
+    constructor(game, x, y, callback) {
         this.game = game;
         this.ctx = game.ctx;
         this.x = x;
         this.y = y;
+        this.callback = callback;
         this.size = 40;
         this.colour = '#BB0088';
         this.selectedColour = '#FF44CC';
@@ -21,6 +22,9 @@ class RoundButton {
         this.clickEvent = (e) => {
             if (this.ctx.isPointInPath(this.hitbox, e.clientX, e.clientY)) {
                 this.active = !this.active;
+                if (this.callback) {
+                    this.callback();
+                }
             }
         };
 
