@@ -13,6 +13,10 @@ class StatePlay extends GameState {
         this.operation = '';
         this.answer = 0;
         this.choices = [];
+
+        this.x = this.game.width / 2;
+        this.y = this.game.height / 4;
+        this.questionSize = this.y;
     }
 
     setup() {
@@ -27,7 +31,7 @@ class StatePlay extends GameState {
         this.createQuestion();
         this.createAnswer();
         this.createChoices();
-        this.buttons = new SelectChoices(this.game, this.choices, this.answer, this.game.width / 2, this.game.height * 0.75);
+        this.buttons = new SelectChoices(this.game, this.choices, this.answer, this.x, this.y + (this.questionSize * 0.75));
         this.buttons.setup();
     }
 
@@ -39,12 +43,13 @@ class StatePlay extends GameState {
         this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, '#FFBB77');
         this.game.gfx.text.drawCenteredText(
             this.currentQuestion,
-            this.game.width / 2,
-            this.game.height / 4,
-            this.game.height / 4,
+            this.x,
+            this.y,
+            this.questionSize,
             '#884400',
             'bold'
         );
+
         this.buttons.draw();
     }
 
@@ -90,6 +95,8 @@ class StatePlay extends GameState {
                 remaining--;
             }
         }
+
+        this.shuffleChoices();
     }
 
     getNumber1() {
@@ -122,6 +129,11 @@ class StatePlay extends GameState {
     getRandomInt(start, end) {
         const diff = end - start;
         return Math.floor(Math.random() * diff) + start;
+    }
+
+    shuffleChoices() {
+        var answerPos = this.getRandomInt(0, this.choices.length);
+        [this.choices[0], this.choices[answerPos]] = [this.choices[answerPos], this.choices[0]];
     }
 }
 

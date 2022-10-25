@@ -24,19 +24,23 @@ class SelectChoices {
             x = this.startX;
             y = this.startY;
             const button = new NumberButton(this.game, x, y, numbers[i]);
+            button.colour = '#BB7733';
             this.numberButtons.push(button);
         }
     }
 
     setup() {
-        let x = this.startX;
-        let y = this.startY;
+        const size = this.numberButtons[0].size;
+        const startX = this.startX - (this.width / 2) + size;
+        const startY = this.startY - (this.height / 2) + size;
+        
+        let x = startX;
+        let y = startY;
         let count = 0;
-        let size = this.numberButtons[0].size;
 
         for (let i = 0; i < this.numberCount; i++) {
             if (count >= this.columns) {
-                x = this.startX;
+                x = startX;
                 y += (size * 2) + this.gap;
                 count = 0;
             }
