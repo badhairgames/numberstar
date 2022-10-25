@@ -25,6 +25,24 @@ class SelectChoices {
             y = this.startY;
             const button = new NumberButton(this.game, x, y, numbers[i]);
             button.colour = '#BB7733';
+            button.selectedColour = button.colour;
+            button.callback = () => {
+                if (button.content === this.answer) {
+                    button.colour = '#00BB00';
+                    button.selectedColour = button.colour;
+                }
+                else {
+                    button.colour = '#BB0000';
+                    button.selectedColour = button.colour;
+                    for (let b = 0; b < this.numberCount; b++) {
+                        if (this.numberButtons[b].content === this.answer) {
+                            this.numberButtons[b].colour = '#006600';
+                            this.numberButtons[b].selectedColour = this.numberButtons[b].colour;
+                            break;
+                        }
+                    }
+                }
+            };
             this.numberButtons.push(button);
         }
     }

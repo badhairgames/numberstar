@@ -21,7 +21,7 @@ class StatePlay extends GameState {
 
     setup() {
         this.clickEvent = (e) => {
-            this.game.changeState(this.game.stateGameOver);
+            // this.game.changeState(this.game.stateGameOver);
         };
 
         document.body.addEventListener('pointerdown', this.clickEvent);
