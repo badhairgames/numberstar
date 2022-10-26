@@ -67,6 +67,7 @@ class StatePlay extends GameState {
         const correct = this.buttons.correct;
         const time = correct ? 200 : 500;
         this.lives = correct ? this.lives : this.lives - 1;
+        this.game.score += correct ? 1 : 0;
 
         if (this.lives === 0) {
             this.game.changeState(this.game.stateGameOver);
