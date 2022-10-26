@@ -17,6 +17,7 @@ class SelectChoices {
         this.startY = startY;
         this.gap = 10;
         this.answered = false;
+        this.correct = false;
 
         let x = startX;
         let y = startY;
@@ -33,6 +34,7 @@ class SelectChoices {
                 if (button.content === this.answer) {
                     button.colour = '#00BB00';
                     button.selectedColour = button.colour;
+                    this.correct = true;
                 }
                 else {
                     button.colour = '#BB0000';
@@ -44,6 +46,7 @@ class SelectChoices {
                             break;
                         }
                     }
+                    this.correct = false;
                 }
             };
             this.numberButtons.push(button);
