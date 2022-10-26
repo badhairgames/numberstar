@@ -18,11 +18,7 @@ class StatePlay extends GameState {
     }
 
     setup() {
-        this.clickEvent = (e) => {
-            // this.game.changeState(this.game.stateGameOver);
-        };
-
-        document.body.addEventListener('pointerdown', this.clickEvent);
+        this.lives = 3;
 
         this.selectedNumbersCount = this.game.selectedNumbers.length;
         this.selectedOperationsCount = this.game.selectedOperations.length;
@@ -65,11 +61,18 @@ class StatePlay extends GameState {
     }
 
     teardown() {
-        document.body.removeEventListener('pointerdown', this.clickEvent);
     }
 
     setNextQuestion() {
-        const time = this.buttons.correct ? 200 : 500;
+        const correct = this.buttons.correct;
+        const time = correct ? 200 : 500;
+        this.lives = correct ? this.lives : this.lives - 1;
+
+        if (this.lives === 0) {
+            this.game.changeState(this.game.stateGameOver);
+            return;
+        }
+
         this.timer = setTimeout(() => {
             this.createQuestion();
             this.createAnswer();

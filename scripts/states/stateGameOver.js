@@ -10,7 +10,9 @@ class StateGameOver extends GameState {
             this.game.changeState(this.game.stateHome);
         };
         
-        document.body.addEventListener('pointerdown', this.clickEvent);
+        this.timer = setTimeout(() => {
+            document.body.addEventListener('pointerdown', this.clickEvent);
+        }, 1000);
     }
 
     update(elapsed) {
