@@ -28,6 +28,15 @@ class Text {
         let msgY = (this.height - 60) / 2;
         this.ctx.fillText(msg, msgX, msgY);
     }
+
+    drawSmallMessage(msg, colour) {
+        this.ctx.font = '30pt sans-serif';
+        this.ctx.fillStyle = colour;
+        let text = this.ctx.measureText(msg);
+        let msgX = (this.width - text.width) / 2;
+        let msgY = (this.height + 30) / 2;
+        this.ctx.fillText(msg, msgX, msgY);
+    }
 }
 
 export { Text };

@@ -28,6 +28,7 @@ class Game {
 
         this.selectedNumbers = [];
         this.selectedOperations = [];
+        this.score = 0;
     }
 
     changeState(state) {
