@@ -9,10 +9,10 @@ class Game {
     get stateStart() { return 1; }
     get statePlay() { return 2; }
     get stateGameOver() { return 3; }
-    get canAdd() { return this.selectedOperations.includes('+'); }
-    get canSubtract() { return this.selectedOperations.includes('-'); }
-    get canMultiply() { return this.selectedOperations.includes('×'); }
-    get canDivide() { return this.selectedOperations.includes('÷'); }
+    get canAdd() { return this.selectedOperators.includes('+'); }
+    get canSubtract() { return this.selectedOperators.includes('-'); }
+    get canMultiply() { return this.selectedOperators.includes('×'); }
+    get canDivide() { return this.selectedOperators.includes('÷'); }
 
     constructor(canvas, ctx) {
         this.canvas = canvas;
@@ -27,7 +27,7 @@ class Game {
         this.state.setup();
 
         this.selectedNumbers = [];
-        this.selectedOperations = [];
+        this.selectedOperators = [];
         this.score = 0;
     }
 
