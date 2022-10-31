@@ -1,15 +1,10 @@
 import { SelectChoices } from '../ui/selectChoices.js';
+import { Question } from '../utils/question.js';
 import { GameState } from './gameState.js';
 
 class StatePlay extends GameState {
     constructor(game) {
         super(game);
-        this.number1 = 0;
-        this.number2 = 0;
-        this.operation = '';
-        this.currentQuestion = '';
-        this.answer = 0;
-        this.choices = [];
         this.answered = false;
  
         this.x = this.game.width / 2;
@@ -19,15 +14,10 @@ class StatePlay extends GameState {
 
     setup() {
         this.lives = 3;
-
-        this.selectedNumbersCount = this.game.selectedNumbers.length;
-        this.selectedOperationsCount = this.game.selectedOperations.length;
-        this.createQuestion();
-        this.createAnswer();
-        this.createChoices();
-        this.buttons = new SelectChoices(this.game, this.choices, this.answer, this.x, this.y + (this.questionSize * 0.75));
+        this.currentQuestion = new Question(this.game);
+        this.buttons = new SelectChoices(this.game, this.currentQuestion.choices, this.currentQuestion.answer, this.x, this.y + (this.questionSize * 0.75));
         this.buttons.setup();
-        this.setCurrentQuestion();
+        this.game.reset();
     }
 
     update(elapsed) {
@@ -49,7 +39,7 @@ class StatePlay extends GameState {
         this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, '#FFBB77');
 
         this.game.gfx.text.drawCenteredText(
-            this.currentQuestion,
+            this.currentQuestion.content,
             this.x,
             this.y,
             this.questionSize,
@@ -67,7 +57,7 @@ class StatePlay extends GameState {
         const correct = this.buttons.correct;
         const time = correct ? 200 : 500;
         this.lives = correct ? this.lives : this.lives - 1;
-        this.game.score += correct ? 1 : 0;
+        this.game.addScore(correct ? 1 : 0);
 
         if (this.lives === 0) {
             this.game.changeState(this.game.stateGameOver);
@@ -75,97 +65,11 @@ class StatePlay extends GameState {
         }
 
         this.timer = setTimeout(() => {
-            this.createQuestion();
-            this.createAnswer();
-            this.createChoices();
-            this.buttons = new SelectChoices(this.game, this.choices, this.answer, this.x, this.y + (this.questionSize * 0.75));
+            this.currentQuestion = new Question(this.game);
+            this.buttons = new SelectChoices(this.game, this.currentQuestion.choices, this.currentQuestion.answer, this.x, this.y + (this.questionSize * 0.75));
             this.buttons.setup();
-            this.setCurrentQuestion();
             clearTimeout(this.timer);
         }, time);
-    }
-
-    createQuestion() {
-        this.number1 = this.getNumber1();
-        this.number2 = this.getNumber2();
-        this.operation = this.getOperator();
-
-        if ('-÷'.includes(this.operation) && this.number1 < this.number2) {
-            const tmp = this.number1;
-            this.number1 = this.number2;
-            this.number2 = tmp;
-        }
-    }
-
-    setCurrentQuestion() {
-        this.currentQuestion = `${this.number1} ${this.operation} ${this.number2}`;
-    }
-
-    createAnswer() {
-        this.answer = this.calculate(this.number1, this.number2, this.operation);
-    }
-
-    createChoices() {
-        this.choices.length = 0;
-        this.choices.push(this.answer);
-        let remaining = 3;
-
-        while (remaining > 0) {
-            let number1 = this.getNumber1();
-            let number2 = this.getNumber2();
-            let operation = this.getOperator();
-    
-            if ('-÷'.includes(operation) && number1 < number2) {
-                const tmp = number1;
-                number1 = number2;
-                number2 = tmp;
-            }
-
-            let answer = this.calculate(number1, number2, operation);
-            if (!this.choices.includes(answer)) {
-                this.choices.push(answer);
-                remaining--;
-            }
-        }
-
-        this.shuffleChoices();
-    }
-
-    getNumber1() {
-        return this.game.selectedNumbers[this.getRandomInt(0, this.selectedNumbersCount)];
-    }
-
-    getNumber2() {
-        return this.getRandomInt(1, 12);
-    }
-
-    getOperator() {
-        return this.game.selectedOperations[this.getRandomInt(0, this.selectedOperationsCount)];
-    }
-
-    calculate(number1, number2, operation) {
-        switch (operation) {
-            case '+':
-                return number1 + number2;
-            case '-':
-                return number1 - number2;
-            case '×':
-                return number1 * number2;
-            case '÷':
-                return number1 / number2;
-        }
-
-        return 0;
-    }
-
-    getRandomInt(start, end) {
-        const diff = end - start;
-        return Math.floor(Math.random() * diff) + start;
-    }
-
-    shuffleChoices() {
-        var answerPos = this.getRandomInt(0, this.choices.length);
-        [this.choices[0], this.choices[answerPos]] = [this.choices[answerPos], this.choices[0]];
     }
 }
 
