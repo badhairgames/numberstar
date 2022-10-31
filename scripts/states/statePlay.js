@@ -17,6 +17,7 @@ class StatePlay extends GameState {
         this.currentQuestion = new Question(this.game);
         this.buttons = new SelectChoices(this.game, this.currentQuestion.choices, this.currentQuestion.answer, this.x, this.y + (this.questionSize * 0.75));
         this.buttons.setup();
+        this.game.reset();
     }
 
     update(elapsed) {
@@ -56,7 +57,7 @@ class StatePlay extends GameState {
         const correct = this.buttons.correct;
         const time = correct ? 200 : 500;
         this.lives = correct ? this.lives : this.lives - 1;
-        this.game.score += correct ? 1 : 0;
+        this.game.addScore(correct ? 1 : 0);
 
         if (this.lives === 0) {
             this.game.changeState(this.game.stateGameOver);

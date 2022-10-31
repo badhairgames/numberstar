@@ -19,7 +19,9 @@ class Question {
     }
 
     getNumber2() {
-        return this.getRandomInt(1, 12);
+        const lrBound = Math.max(1, this.game.level - 3);
+        const uprBound = (this.game.level + 2) * 2;
+        return this.getRandomInt(lrBound, uprBound);
     }
 
     getOperator() {
@@ -27,11 +29,23 @@ class Question {
     }
 
     fixNumbers() {
-        if ('-÷'.includes(this.operator) && this.number1 < this.number2) {
-            const tmp = this.number1;
-            this.number1 = this.number2;
-            this.number2 = tmp;
+        switch (this.operator) {
+            case '-':
+                if (this.number1 < this.number2) {
+                    this.swapNumbers();
+                }
+                break;
+            case '÷':
+                this.swapNumbers();
+                this.number1 = this.number1 * this.number2;
+                break;
         }
+    }
+
+    swapNumbers() {
+        const tmp = this.number1;
+        this.number1 = this.number2;
+        this.number2 = tmp;
     }
 
     calculate(number1, number2, operator) {
@@ -68,6 +82,10 @@ class Question {
                 const tmp = number1;
                 number1 = number2;
                 number2 = tmp;
+            }
+
+            if (operator === '÷') {
+                number1 = number1 * number2;
             }
 
             let answer = this.calculate(number1, number2, operator);
