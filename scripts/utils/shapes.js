@@ -18,6 +18,15 @@ class Shapes {
         this.game.ctx.fill(circle);
         return circle;
     }
+
+    drawPie(x, y, r, angle, fill) {
+        const circle = new Path2D();
+        circle.arc(x, y, r, 0, angle);
+        circle.lineTo(x, y);
+        this.game.ctx.fillStyle = fill;
+        this.game.ctx.fill(circle);
+        return circle;
+    }
 }
 
 export { Shapes };
