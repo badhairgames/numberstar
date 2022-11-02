@@ -6,7 +6,7 @@ class StatePlay extends GameState {
     constructor(game) {
         super(game);
         this.answered = false;
- 
+
         this.x = this.game.width / 2;
         this.y = this.game.height / 4;
         this.questionSize = this.y;
@@ -15,32 +15,38 @@ class StatePlay extends GameState {
     setup() {
         this.lives = 3;
         this.currentQuestion = new Question(this.game);
-        this.buttons = new SelectChoices(this.game, this.currentQuestion.choices, this.currentQuestion.answer, this.x, this.y + (this.questionSize * 0.75));
+        this.buttons = new SelectChoices(
+            this.game,
+            this.currentQuestion.choices,
+            this.currentQuestion.answer,
+            this.x,
+            this.y + this.questionSize * 0.75
+        );
         this.buttons.setup();
         this.game.reset();
         this.resetTimer();
     }
 
     update(elapsed) {
-        this.buttons.update(elapsed);
         this.currentTimer -= elapsed;
 
-        if (this.currentTimer <= 0) {
-            this.answered = true;
-            this.buttons.answer = -1;
-            this.buttons.answered = true;
-            this.timeout = true;
-            this.setNextQuestion();
-        }
-        else if (this.buttons.answered && !this.answered) {
-            this.buttons.teardown();
-            this.answered = true;
-        }
+        if (!this.timeout) {
+            if (this.currentTimer <= 0) {
+                this.answered = true;
+                this.buttons.answer = -1;
+                this.buttons.answered = true;
+                this.timeout = true;
+                this.setNextQuestion();
+            } else if (this.buttons.answered && !this.answered) {
+                this.buttons.teardown();
+                this.answered = true;
+            }
 
-        if (!this.timeout && this.answered) {
-            this.buttons.answered = false;
-            this.answered = false;
-            this.setNextQuestion();
+            if (this.answered) {
+                this.buttons.answered = false;
+                this.answered = false;
+                this.setNextQuestion();
+            }
         }
     }
 
@@ -63,8 +69,7 @@ class StatePlay extends GameState {
         }
     }
 
-    teardown() {
-    }
+    teardown() {}
 
     setNextQuestion() {
         const correct = !this.timeout && this.buttons.correct;
@@ -72,7 +77,13 @@ class StatePlay extends GameState {
 
         this.timer = setTimeout(() => {
             this.currentQuestion = new Question(this.game);
-            this.buttons = new SelectChoices(this.game, this.currentQuestion.choices, this.currentQuestion.answer, this.x, this.y + (this.questionSize * 0.75));
+            this.buttons = new SelectChoices(
+                this.game,
+                this.currentQuestion.choices,
+                this.currentQuestion.answer,
+                this.x,
+                this.y + this.questionSize * 0.75
+            );
             this.buttons.setup();
             this.resetTimer();
             clearTimeout(this.timer);
