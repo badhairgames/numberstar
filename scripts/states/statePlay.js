@@ -41,10 +41,11 @@ class StatePlay extends GameState {
     setup() {
         this.lives = 3;
         this.state = this.states[this.stateInit];
+        this.state.setup();
 
        // Below may not be needed
-       this.currentQuestion = new Question(this.game);
-        this.buttons = new SelectChoices(
+       // this.currentQuestion = new Question(this.game);
+       this.buttons = new SelectChoices(
             this.game,
             this.currentQuestion.choices,
             this.currentQuestion.answer,
