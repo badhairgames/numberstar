@@ -41,19 +41,8 @@ class StatePlay extends GameState {
     setup() {
         this.lives = 3;
         this.state = this.states[this.stateInit];
-        this.state.setup();
-
-       // Below may not be needed
-       // this.currentQuestion = new Question(this.game);
-       this.buttons = new SelectChoices(
-            this.game,
-            this.currentQuestion.choices,
-            this.currentQuestion.answer,
-            this.x,
-            this.y + this.questionSize * 0.75
-        );
-        this.buttons.setup();
         this.game.reset();
+        this.state.setup();
         this.resetTimer();
     }
 
@@ -61,7 +50,7 @@ class StatePlay extends GameState {
         this.state.update(elapsed);
 
         // Below may not be needed
-        this.currentTimer -= elapsed;
+        /* this.currentTimer -= elapsed;
 
         if (!this.timeout) {
             if (this.currentTimer <= 0) {
@@ -80,7 +69,7 @@ class StatePlay extends GameState {
                 this.answered = false;
                 this.setNextQuestion();
             }
-        }
+        } */
     }
 
     draw() {
