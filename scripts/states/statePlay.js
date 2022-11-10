@@ -75,22 +75,6 @@ class StatePlay extends GameState {
     draw() {
         this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, '#FFBB77');
         this.state.draw();
-
-        // Below may not be needed
-        this.game.gfx.text.drawCenteredText(
-            this.currentQuestion.content,
-            this.x,
-            this.y,
-            this.questionSize,
-            '#884400',
-            'bold'
-        );
-
-        this.buttons.draw();
-
-        if (!this.timeout) {
-            this.game.gfx.shapes.drawPie(this.game.width / 2, this.game.height * 0.8, 40, this.timerAngle(), '#884400');
-        }
     }
 
     teardown() {}
