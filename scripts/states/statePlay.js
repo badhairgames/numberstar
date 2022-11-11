@@ -1,5 +1,3 @@
-import { SelectChoices } from '../ui/selectChoices.js';
-import { Question } from '../utils/question.js';
 import { GameState } from './gameState.js';
 import { PlayStateInit } from './play/playStateInit.js';
 import { PlayStateInput } from './play/playStateInput.js';
@@ -31,8 +29,6 @@ class StatePlay extends GameState {
             new PlayStateGameOver(this),
         ];
 
-        // Below may not be needed
-        this.answered = false;
         this.x = this.game.width / 2;
         this.y = this.game.height / 4;
         this.questionSize = this.y;
@@ -43,33 +39,13 @@ class StatePlay extends GameState {
         this.state = this.states[this.stateInit];
         this.game.reset();
         this.state.setup();
-        this.resetTimer();
     }
 
     update(elapsed) {
         this.state.update(elapsed);
-
-        // Below may not be needed
-        /* this.currentTimer -= elapsed;
-
-        if (!this.timeout) {
-            if (this.currentTimer <= 0) {
-                this.answered = true;
-                this.buttons.answer = -1;
-                this.buttons.answered = true;
-                this.timeout = true;
-                this.setNextQuestion();
-            } else if (this.buttons.answered && !this.answered) {
-                this.buttons.teardown();
-                this.answered = true;
-            }
-
-            if (this.answered) {
-                this.buttons.answered = false;
-                this.answered = false;
-                this.setNextQuestion();
-            }
-        } */
+        if (this.lives <= 0) {
+            this.game.changeState(this.game.stateGameOver);
+        }
     }
 
     draw() {
@@ -78,43 +54,6 @@ class StatePlay extends GameState {
     }
 
     teardown() {}
-
-    setNextQuestion() {
-        const correct = !this.timeout && this.buttons.correct;
-        const time = correct ? 200 : 500;
-
-        this.timer = setTimeout(() => {
-            this.currentQuestion = new Question(this.game);
-            this.buttons = new SelectChoices(
-                this.game,
-                this.currentQuestion.choices,
-                this.currentQuestion.answer,
-                this.x,
-                this.y + this.questionSize * 0.75
-            );
-            this.buttons.setup();
-            this.resetTimer();
-            clearTimeout(this.timer);
-        }, time);
-
-        this.lives = correct ? this.lives : this.lives - 1;
-        this.game.addScore(correct ? 1 : 0);
-
-        if (this.lives === 0) {
-            this.game.changeState(this.game.stateGameOver);
-            return;
-        }
-    }
-
-    resetTimer() {
-        this.timeout = false;
-        this.timerStart = 3000;
-        this.currentTimer = this.timerStart;
-    }
-
-    timerAngle() {
-        return (this.currentTimer / this.timerStart) * 2 * Math.PI;
-    }
 
     changeState(state) {
         this.state.teardown();
