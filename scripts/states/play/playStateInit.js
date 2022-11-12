@@ -13,7 +13,7 @@ class PlayStateInit extends PlayState {
     setup() {
         this.parent.currentQuestion = new Question(this.game);
         this.parent.buttons = new SelectChoices(
-            this.game,
+            this.parent,
             this.parent.currentQuestion.choices,
             this.parent.currentQuestion.answer,
             this.x,

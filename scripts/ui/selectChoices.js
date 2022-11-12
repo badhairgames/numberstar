@@ -1,3 +1,4 @@
+import { Explosion } from "../utils/explosion.js";
 import { NumberButton } from "./numberButton.js";
 
 class SelectChoices {
@@ -6,8 +7,10 @@ class SelectChoices {
     get rows() { return this.numberCount / this.columns; }
     get isValid() { return this.numberButtons.some(b => b.active); }
 
-    constructor(game, numbers, answer, startX, startY) {
-        this.game = game;
+    constructor(parent, numbers, answer, startX, startY) {
+        this.parent = parent;
+        this.game = parent.game;
+        this.ctx = this.game.ctx;
         this.numberCount = numbers.length;
         this.numbers = numbers;
         this.numberButtons = [];
@@ -34,6 +37,7 @@ class SelectChoices {
                 if (button.content === this.answer) {
                     button.colour = '#00BB00';
                     button.selectedColour = button.colour;
+                    this.parent.particles.push(new Explosion(this.ctx, button.x, button.y, button.colour));
                     this.correct = true;
                 }
                 else {
@@ -46,6 +50,7 @@ class SelectChoices {
                             break;
                         }
                     }
+                    this.parent.particles.push(new Explosion(this.ctx, button.x, button.y, button.colour));
                     this.correct = false;
                 }
             };
