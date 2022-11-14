@@ -37,7 +37,6 @@ class SelectChoices {
                 if (button.content === this.answer) {
                     button.colour = '#00BB00';
                     button.selectedColour = button.colour;
-                    this.parent.particles.push(new Explosion(this.ctx, button.x, button.y, button.colour));
                     this.correct = true;
                 }
                 else {
@@ -50,10 +49,12 @@ class SelectChoices {
                             break;
                         }
                     }
-                    this.parent.particles.push(new Explosion(this.ctx, button.x, button.y, button.colour));
                     this.correct = false;
                 }
+
+                button.explode();
             };
+
             this.numberButtons.push(button);
         }
     }

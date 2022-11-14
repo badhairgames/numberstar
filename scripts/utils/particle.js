@@ -1,12 +1,13 @@
 class Particle {
-    constructor(ctx, x, y, colour = '#44ff00', size = 5) {
+    constructor(ctx, x, y, colour = '#44ff00', size = 5, speed = 200) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
         this.r = Math.random() * 10;
         this.colour = colour;
-        this.xDiff = (Math.random() * size) - (size / 2);
-        this.yDiff = (Math.random() * size) - (size / 2);
+        this.speedMultiplier = speed / 1000;
+        this.xDiff = ((Math.random() * size) - (size / 2)) / this.speedMultiplier;
+        this.yDiff = ((Math.random() * size) - (size / 2)) / this.speedMultiplier;
    }
 
    draw() {
@@ -16,8 +17,8 @@ class Particle {
         this.ctx.fill();
         this.x += this.xDiff;
         this.y += this.yDiff;
-        if (this.r >= 0.1) {
-            this.r -= 0.1;
+        if (this.r >= this.speedMultiplier) {
+            this.r -= this.speedMultiplier;
         }
    }
 }

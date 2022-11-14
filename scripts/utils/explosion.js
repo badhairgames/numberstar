@@ -1,12 +1,13 @@
 import { Particle } from "./particle.js";
 
 class Explosion {
-    constructor(ctx, x, y, colour = '#44ff00', size = 5) {
+    constructor(ctx, x, y, size = 5, speed = 200) {
+        this.ctx = ctx;
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.speed = speed;
         this.particles = [];
-        for (var i = 0; i < 100; i++) {
-            var particle = new Particle(ctx, x, y, colour, size);
-            this.particles.push(particle);
-        }
     }
 
     draw() {
@@ -14,6 +15,14 @@ class Explosion {
             for (var i = 0; i < this.particles.length; i++) {
                 this.particles[i].draw();
             }
+        }
+    }
+
+    explode(colour) {
+        this.particles = [];
+        for (var i = 0; i < 100; i++) {
+            var particle = new Particle(this.ctx, this.x, this.y, colour, this.size, this.speed);
+            this.particles.push(particle);
         }
     }
 
@@ -30,4 +39,4 @@ class Explosion {
     }
 }
 
-export { Explosion }
+export { Explosion };

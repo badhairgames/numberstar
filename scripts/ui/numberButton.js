@@ -1,3 +1,4 @@
+import { Explosion } from "../utils/explosion.js";
 import { RoundButton } from "./roundButton.js";
 
 class NumberButton extends RoundButton {
@@ -17,7 +18,16 @@ class NumberButton extends RoundButton {
     }
 
     draw() {
+        if (this.explosion) {
+            this.explosion.draw();
+        }
+        
         super.draw();
+    }
+
+    explode() {
+        this.explosion = new Explosion(this.game.ctx, this.x, this.y, 5);
+        this.explosion.explode(this.selectedColour);
     }
 
     teardown() {
