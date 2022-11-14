@@ -1,11 +1,12 @@
 import { Particle } from "./particle.js";
 
 class Explosion {
-    constructor(ctx, x, y, size = 5) {
+    constructor(ctx, x, y, size = 5, speed = 200) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
         this.size = size;
+        this.speed = speed;
         this.particles = [];
     }
 
@@ -20,7 +21,7 @@ class Explosion {
     explode(colour) {
         this.particles = [];
         for (var i = 0; i < 100; i++) {
-            var particle = new Particle(this.ctx, this.x, this.y, colour, this.size);
+            var particle = new Particle(this.ctx, this.x, this.y, colour, this.size, this.speed);
             this.particles.push(particle);
         }
     }
