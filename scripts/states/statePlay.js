@@ -32,7 +32,6 @@ class StatePlay extends GameState {
         this.x = this.game.width / 2;
         this.y = this.game.height / 4;
         this.questionSize = this.y;
-        this.particles = [];
     }
 
     setup() {
@@ -47,21 +46,10 @@ class StatePlay extends GameState {
         if (this.lives <= 0) {
             this.game.changeState(this.game.stateGameOver);
         }
-
-        for (let i = this.particles.length - 1; i >= 0; i--) {
-            if (this.particles[i].isComplete()) {
-                this.particles.splice(i, 1);
-            }
-        }
     }
 
     draw() {
         this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, '#FFBB77');
-
-        for (let i = 0; i < this.particles.length; i++) {
-            this.particles[i].draw();
-        }
-
         this.state.draw();
     }
 
