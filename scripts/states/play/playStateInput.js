@@ -1,18 +1,20 @@
+import { Timer } from "../../utils/timer.js";
 import { PlayState } from "./playState.js";
 
 class PlayStateInput extends PlayState {
     constructor(parent) {
         super(parent);
         this.game = parent.game;
+        this.timer = new Timer(this.game);
     }
 
     setup() {
-        this.resetTimer();
+        this.timer.reset();
     }
 
     update(elapsed) {
-        this.timer -= elapsed;
-        if (this.timer <= 0) {
+        this.timer.update(elapsed);
+        if (this.timer.remaining <= 0) {
             this.parent.changeState(this.parent.stateTimeout);
             return;
         }
@@ -39,22 +41,10 @@ class PlayStateInput extends PlayState {
         );
 
         this.parent.buttons.draw();
-
-        if (this.timer >= 0) {
-            this.game.gfx.shapes.drawPie(this.game.width / 2, this.game.height * 0.8, 40, this.timerAngle(), '#884400');
-        }
+        this.timer.draw();
     }
 
     teardown() {
-    }
-
-    resetTimer() {
-        this.timerStart = 3000;
-        this.timer = this.timerStart;
-    }
-
-    timerAngle() {
-        return (this.timer / this.timerStart) * 2 * Math.PI;
     }
 }
 
