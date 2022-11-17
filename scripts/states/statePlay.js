@@ -6,6 +6,7 @@ import { PlayStateIncorrect } from './play/playStateIncorrect.js';
 import { PlayStateTimeout } from './play/playStateTimeout.js';
 import { PlayStateUpdate } from './play/playStateUpdate.js';
 import { PlayStateGameOver } from './play/playStateGameOver.js';
+import { Timer } from "../utils/timer.js";
 
 class StatePlay extends GameState {
     get stateInit() { return 0; }
@@ -32,6 +33,7 @@ class StatePlay extends GameState {
         this.x = this.game.width / 2;
         this.y = this.game.height / 4;
         this.questionSize = this.y;
+        this.timer = new Timer(this.game);
     }
 
     setup() {

@@ -1,6 +1,10 @@
+import { Explosion } from "./explosion.js";
 class Timer {
     constructor(game) {
         this.game = game;
+        this.x = this.game.width / 2;
+        this.y = this.game.height * 0.8;
+        this.selectedColour = '#BB0000';
     }
 
     update(elapsed) {
@@ -9,9 +13,18 @@ class Timer {
     }
 
     draw() {
-        if (this.remaining >= 0) {
-            this.game.gfx.shapes.drawPie(this.game.width / 2, this.game.height * 0.8, 40, this.timerAngle(), '#884400');
+        if (this.explosion) {
+            this.explosion.draw();
         }
+
+        if (this.remaining >= 0) {
+            this.game.gfx.shapes.drawPie(this.x, this.y, 40, this.timerAngle(), '#884400');
+        }
+    }
+
+    explode() {
+        this.explosion = new Explosion(this.game.ctx, this.x, this.y, 5);
+        this.explosion.explode(this.selectedColour);
     }
 
     reset() {

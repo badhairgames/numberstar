@@ -5,16 +5,15 @@ class PlayStateInput extends PlayState {
     constructor(parent) {
         super(parent);
         this.game = parent.game;
-        this.timer = new Timer(this.game);
     }
 
     setup() {
-        this.timer.reset();
+        this.parent.timer.reset();
     }
 
     update(elapsed) {
-        this.timer.update(elapsed);
-        if (this.timer.remaining <= 0) {
+        this.parent.timer.update(elapsed);
+        if (this.parent.timer.remaining <= 0) {
             this.parent.changeState(this.parent.stateTimeout);
             return;
         }
@@ -41,7 +40,7 @@ class PlayStateInput extends PlayState {
         );
 
         this.parent.buttons.draw();
-        this.timer.draw();
+        this.parent.timer.draw();
     }
 
     teardown() {
