@@ -7,6 +7,7 @@ class PlayStateTimeout extends PlayState {
 
     setup() {
         this.timer = 1000;
+        this.parent.timer.explode();
     }
 
     update(elapsed) {
@@ -28,6 +29,7 @@ class PlayStateTimeout extends PlayState {
         );
 
         this.parent.buttons.draw();
+        this.parent.timer.draw();
     }
 
     teardown() {
