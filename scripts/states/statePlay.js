@@ -7,6 +7,7 @@ import { PlayStateTimeout } from './play/playStateTimeout.js';
 import { PlayStateUpdate } from './play/playStateUpdate.js';
 import { PlayStateGameOver } from './play/playStateGameOver.js';
 import { Timer } from "../utils/timer.js";
+import { Lives } from "../ui/lives.js";
 
 class StatePlay extends GameState {
     get stateInit() { return 0; }
@@ -34,10 +35,11 @@ class StatePlay extends GameState {
         this.y = this.game.height / 4;
         this.questionSize = this.y;
         this.timer = new Timer(this.game);
+        this.lives = new Lives(this);
     }
 
     setup() {
-        this.lives = 3;
+        this.lives.reset();
         this.state = this.states[this.stateInit];
         this.game.reset();
         this.state.setup();
@@ -45,7 +47,7 @@ class StatePlay extends GameState {
 
     update(elapsed) {
         this.state.update(elapsed);
-        if (this.lives <= 0) {
+        if (this.lives.outOfLives()) {
             this.game.changeState(this.game.stateGameOver);
         }
     }
@@ -53,6 +55,7 @@ class StatePlay extends GameState {
     draw() {
         this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, '#FFBB77');
         this.state.draw();
+        this.lives.draw();
     }
 
     teardown() {}

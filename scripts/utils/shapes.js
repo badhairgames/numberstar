@@ -19,6 +19,14 @@ class Shapes {
         return circle;
     }
 
+    drawCircleOutline(x, y, r, stroke) {
+        const circle = new Path2D();
+        circle.arc(x, y, r, 0, 2 * Math.PI);
+        this.game.ctx.strokeStyle = stroke;
+        this.game.ctx.stroke(circle);
+        return circle;
+    }
+
     drawPie(x, y, r, angle, fill) {
         const circle = new Path2D();
         circle.arc(x, y, r, 0, angle);
