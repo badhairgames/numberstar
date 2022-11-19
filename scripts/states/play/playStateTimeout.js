@@ -13,7 +13,7 @@ class PlayStateTimeout extends PlayState {
     update(elapsed) {
         this.timer -= elapsed;
         if (this.timer <= 0) {
-            this.parent.lives--;
+            this.parent.lives.add(-1);
             this.parent.changeState(this.parent.stateInit);
         }
     }
