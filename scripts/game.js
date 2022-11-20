@@ -30,7 +30,7 @@ class Game {
         this.selectedOperators = [];
         this.score = 0;
         this.level = 1;
-        this.levelCounter = 10;
+        this.resetLevelCounter();
     }
 
     changeState(state) {
@@ -55,14 +55,18 @@ class Game {
 
         if (this.levelCounter <= 0) {
             this.level++;
-            this.levelCounter = 10;
+            this.resetLevelCounter();
         }
     }
 
     reset() {
         this.score = 0;
         this.level = 1;
-        this.levelCounter = 10;
+        this.resetLevelCounter();
+    }
+
+    resetLevelCounter() {
+        this.levelCounter = 3;
     }
 }
 

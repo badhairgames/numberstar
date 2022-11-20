@@ -8,6 +8,7 @@ import { PlayStateUpdate } from './play/playStateUpdate.js';
 import { PlayStateGameOver } from './play/playStateGameOver.js';
 import { Timer } from "../utils/timer.js";
 import { Lives } from "../ui/lives.js";
+import { Info } from '../ui/info.js';
 
 class StatePlay extends GameState {
     get stateInit() { return 0; }
@@ -36,6 +37,7 @@ class StatePlay extends GameState {
         this.questionSize = this.y;
         this.timer = new Timer(this.game);
         this.lives = new Lives(this);
+        this.info = new Info(this);
     }
 
     setup() {
@@ -43,6 +45,7 @@ class StatePlay extends GameState {
         this.state = this.states[this.stateInit];
         this.game.reset();
         this.state.setup();
+        this.info.setup();
     }
 
     update(elapsed) {
@@ -54,8 +57,10 @@ class StatePlay extends GameState {
 
     draw() {
         this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, '#FFBB77');
+        this.game.gfx.shapes.drawRect(0, 0, this.game.width, 60, '#FFCC88');
         this.state.draw();
         this.lives.draw();
+        this.info.draw();
     }
 
     teardown() {}

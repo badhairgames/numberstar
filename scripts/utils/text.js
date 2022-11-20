@@ -15,7 +15,7 @@ class Text {
     }
 
     drawText(msg, x, y, size, colour) {
-        this.ctx.font = `${size}pt sans-serif`;
+        this.ctx.font = `${size}px sans-serif`;
         this.ctx.fillStyle = colour;
         this.ctx.fillText(msg, x, y);
     }
