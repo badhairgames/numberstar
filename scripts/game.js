@@ -66,7 +66,7 @@ class Game {
     }
 
     resetLevelCounter() {
-        this.levelCounter = 3;
+        this.levelCounter = 10;
     }
 }
 
