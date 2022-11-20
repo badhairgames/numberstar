@@ -12,7 +12,7 @@ class PlayStateCorrect extends PlayState {
     update(elapsed) {
         this.timer -= elapsed;
         if (this.timer <= 0) {
-            this.game.score++;
+            this.game.addScore(1);
             this.parent.changeState(this.parent.stateInit);
         }
     }

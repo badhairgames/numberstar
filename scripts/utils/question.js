@@ -1,12 +1,19 @@
 class Question {
-    constructor(game) {
+    constructor(game, currentQuestion) {
         this.game = game;
         this.selectedNumbersCount = this.game.selectedNumbers.length;
         this.selectedOperatorsCount = this.game.selectedOperators.length;
 
-        this.operator = this.getOperator();
-        this.number1 = this.getNumber1();
-        this.number2 = this.getNumber2();
+        // Ensure a question isn't repeated two consecutive turns.
+        let requiresQuestion = true;
+        while (requiresQuestion) {
+            this.operator = this.getOperator();
+            this.number1 = this.getNumber1();
+            this.number2 = this.getNumber2(); 
+
+            requiresQuestion = currentQuestion != undefined && this.equals(currentQuestion);
+        }
+
         this.fixNumbers();
         this.answer = this.calculate(this.number1, this.number2, this.operator);
         this.choices = [];
@@ -101,6 +108,10 @@ class Question {
     shuffleChoices() {
         var answerPos = this.getRandomInt(0, this.choices.length);
         [this.choices[0], this.choices[answerPos]] = [this.choices[answerPos], this.choices[0]];
+    }
+
+    equals(other) {
+        return this.number1 === other.number1 && this.number2 === other.number2 && this.operator === other.operator;
     }
 }
 
