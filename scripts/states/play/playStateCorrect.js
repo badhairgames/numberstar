@@ -7,6 +7,7 @@ class PlayStateCorrect extends PlayState {
 
     setup() {
         this.timer = 500;
+        this.parent.buttons.disable();
     }
 
     update(elapsed) {
