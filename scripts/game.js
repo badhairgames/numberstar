@@ -34,6 +34,7 @@ class Game {
     }
 
     changeState(state) {
+        console.log('Game changeState: ' + state);
         this.state.teardown();
         this.state = this.states[state];
         this.state.setup();

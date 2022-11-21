@@ -46,12 +46,14 @@ class StatePlay extends GameState {
         this.game.reset();
         this.state.setup();
         this.info.setup();
+        this.gameOver = false;
     }
 
     update(elapsed) {
         this.state.update(elapsed);
-        if (this.lives.outOfLives()) {
-            this.game.changeState(this.game.stateGameOver);
+        if (this.lives.outOfLives() && !this.gameOver) {
+            this.gameOver = true;
+            this.changeState(this.stateGameOver);
         }
     }
 

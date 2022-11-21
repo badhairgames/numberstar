@@ -82,6 +82,8 @@ class SelectChoices {
             count++;
             x += (size * 2) + this.gap;
         }
+
+        this.enable();
     }
 
     update(elapsed) {
@@ -105,6 +107,18 @@ class SelectChoices {
             if (this.numberButtons[i].active) result.push(i + 1);
         }
         return result;
+    }
+
+    enable() {
+        for (let i = 0; i < this.numberCount; i++) {
+            this.numberButtons[i].enabled = true;
+        }
+    }
+
+    disable() {
+        for (let i = 0; i < this.numberCount; i++) {
+            this.numberButtons[i].enabled = false;
+        }
     }
 }
 

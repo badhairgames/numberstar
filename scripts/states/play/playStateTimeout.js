@@ -8,6 +8,7 @@ class PlayStateTimeout extends PlayState {
     setup() {
         this.timer = 1000;
         this.parent.timer.explode();
+        this.parent.buttons.disable();
     }
 
     update(elapsed) {

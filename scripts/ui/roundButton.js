@@ -18,11 +18,12 @@ class RoundButton {
     }
 
     setup() {
+        this.enabled = true;
         this.hitbox = this.Shapes.drawCircle(this.x, this.y, this.size, 'rgba(0,0,0,0)');
         this.clickEvent = (e) => {
             if (this.ctx.isPointInPath(this.hitbox, e.clientX, e.clientY)) {
                 this.active = !this.active;
-                if (this.callback) {
+                if (this.callback && this.enabled) {
                     this.callback();
                 }
             }
