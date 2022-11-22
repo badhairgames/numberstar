@@ -19,6 +19,9 @@ class StatePlay extends GameState {
     get stateUpdate() { return 5; }
     get stateGameOver() { return 6; }
 
+    get x() { return this.game.width / 2; }
+    get y() { return this.game.height / 4; }
+
     constructor(game) {
         super(game);
 
@@ -32,8 +35,6 @@ class StatePlay extends GameState {
             new PlayStateGameOver(this),
         ];
 
-        this.x = this.game.width / 2;
-        this.y = this.game.height / 4;
         this.questionSize = this.y;
         this.timer = new Timer(this.game);
         this.lives = new Lives(this);

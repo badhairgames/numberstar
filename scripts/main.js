@@ -16,4 +16,9 @@ function animate(timeStamp) {
     window.requestAnimationFrame(animate);
 }
 
+window.onresize = function() {
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
+};
+
 animate(0);
