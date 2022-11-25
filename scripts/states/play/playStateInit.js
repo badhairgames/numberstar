@@ -3,10 +3,11 @@ import { Question } from "../../utils/question.js";
 import { SelectChoices } from "../../ui/selectChoices.js";
 
 class PlayStateInit extends PlayState {
+    get x() { return this.game.width / 2; }
+    get y() { return this.game.height / 4; }
+
     constructor(parent) {
         super(parent);
-        this.x = this.game.width / 2;
-        this.y = this.game.height / 4;
         this.questionSize = this.y;
     }
 
@@ -15,9 +16,7 @@ class PlayStateInit extends PlayState {
         this.parent.buttons = new SelectChoices(
             this.parent,
             this.parent.currentQuestion.choices,
-            this.parent.currentQuestion.answer,
-            this.x,
-            this.y + this.questionSize * 0.75
+            this.parent.currentQuestion.answer
         );
         this.parent.buttons.setup();
 

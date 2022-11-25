@@ -2,14 +2,15 @@ import { Shapes } from "../utils/shapes.js";
 import { Explosion } from "../utils/explosion.js";
 
 class Lives {
+    get x() { return this.game.width - this.size - this.gap; }
+    get y() { return this.size + this.gap; }
+
     constructor(parent) {
         this.parent = parent;
         this.game = this.parent.game;
         this.ctx = this.game.ctx;
         this.size = 10;
         this.gap = this.size * 1.5;
-        this.x = this.game.width - this.size - this.gap;
-        this.y = this.size + this.gap;
         this.Shapes = new Shapes(this.game);
         this.colour = '#BB0000';
         this.reset();

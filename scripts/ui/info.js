@@ -1,15 +1,16 @@
 import { Text } from "../utils/text.js";
 
 class Info {
+    get x() { return this.gap; }
+    get y() { return this.size + this.gap; }
+    get midX() { return this.game.width / 2; }
+
     constructor(parent) {
         this.parent = parent;
         this.game = this.parent.game;
         this.ctx = this.game.ctx;
         this.size = 15;
         this.gap = 15;
-        this.x = this.gap;
-        this.y = this.size + this.gap;
-        this.midX = this.game.width / 2;
         this.Text = new Text(this.game);
         this.colour = '#BB0000';
         this.levelSizeMultiplier = 1;

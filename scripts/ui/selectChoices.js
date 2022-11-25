@@ -6,8 +6,10 @@ class SelectChoices {
     get height() { return (this.rows * this.numberButtons[0].size * 2) + (this.gap * (this.rows - 1)); }
     get rows() { return this.numberCount / this.columns; }
     get isValid() { return this.numberButtons.some(b => b.active); }
+    get startX() { return this.game.width / 2; }
+    get startY() { return (this.game.height / 4) + (this.game.height / 4) * 0.75; }
 
-    constructor(parent, numbers, answer, startX, startY) {
+    constructor(parent, numbers, answer) {
         this.parent = parent;
         this.game = parent.game;
         this.ctx = this.game.ctx;
@@ -16,14 +18,12 @@ class SelectChoices {
         this.numberButtons = [];
         this.columns = 4;
         this.answer = answer;
-        this.startX = startX;
-        this.startY = startY;
         this.gap = 10;
         this.answered = false;
         this.correct = false;
 
-        let x = startX;
-        let y = startY;
+        let x = this.startX;
+        let y = this.startY;
 
         for (let i = 0; i < this.numberCount; i++) {
             x = this.startX;
@@ -90,8 +90,28 @@ class SelectChoices {
     }
 
     draw() {
+        const size = this.numberButtons[0].size;
+        const startX = this.startX - (this.width / 2) + size;
+        const startY = this.startY - (this.height / 2) + size;
+        
+        let x = startX;
+        let y = startY;
+        let count = 0;
+
         for (let i = 0; i < this.numberCount; i++) {
-            this.numberButtons[i].draw();
+            if (count >= this.columns) {
+                x = startX;
+                y += (size * 2) + this.gap;
+                count = 0;
+            }
+
+            const button = this.numberButtons[i];
+            button.x = x;
+            button.y = y;
+            count++;
+            x += (size * 2) + this.gap;
+
+            button.draw();
         }
     }
     
