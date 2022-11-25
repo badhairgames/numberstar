@@ -1,8 +1,10 @@
 class Text {
+    get width() { return this.game.width; }
+    get height() { return this.game.height; }
+
     constructor(game) {
+        this.game = game;
         this.ctx = game.ctx;
-        this.width = game.width;
-        this.height = game.height;
     }
 
     drawCenteredText(msg, x, y, size, colour, style) {

@@ -1,9 +1,10 @@
 import { Explosion } from "./explosion.js";
 class Timer {
+    get x() { return this.game.width / 2; }
+    get y() { return this.game.height * 0.8; }
+
     constructor(game) {
         this.game = game;
-        this.x = this.game.width / 2;
-        this.y = this.game.height * 0.8;
         this.selectedColour = '#BB0000';
     }
 

@@ -14,11 +14,12 @@ class Game {
     get canMultiply() { return this.selectedOperators.includes('×'); }
     get canDivide() { return this.selectedOperators.includes('÷'); }
 
+    get width() { return this.canvas.clientWidth; }
+    get height() { return this.canvas.clientHeight; }
+
     constructor(canvas, ctx) {
         this.canvas = canvas;
         this.ctx = ctx;
-        this.width = canvas.clientWidth;
-        this.height = canvas.clientHeight;
         this.currentTimestamp = 0;
         this.gfx = new Drawing(this);
 
