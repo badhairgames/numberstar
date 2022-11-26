@@ -17,8 +17,8 @@ class StateHome extends GameState {
     }
 
     draw() {
-        this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, '#BBFF77');
-        this.game.gfx.text.drawBigMessage('Home', '#448800');
+        this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, this.game.colour2);
+        this.game.gfx.text.drawBigMessage('Home', this.game.colour5);
     }
     
     teardown() {

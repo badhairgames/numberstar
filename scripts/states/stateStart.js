@@ -53,7 +53,7 @@ class StateStart extends GameState {
     }
 
     draw() {
-        this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, '#FF77BB');
+        this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, this.game.colour2);
         this.numbers.draw();
         this.operators.draw();
         this.button.draw();

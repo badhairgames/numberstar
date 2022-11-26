@@ -22,8 +22,6 @@ class RectButton {
     }
 
     setup() {
-        this.x = this.cx - (this.width / 2);
-        this.y = this.cy - (this.height / 2);
         this.hitbox = this.Shapes.drawRect(this.x, this.y, this.width, this.height, 'rgba(0,0,0,0)');
         this.clickEvent = (e) => {
             if (this.ctx.isPointInPath(this.hitbox, e.clientX, e.clientY)) {
@@ -34,7 +32,9 @@ class RectButton {
         document.body.addEventListener('pointerdown', this.clickEvent);
     }
 
-    update(elapsed) {}
+    update(elapsed) {
+        this.hitbox = this.Shapes.drawRect(this.x, this.y, this.width, this.height, 'rgba(0,0,0,0)');
+    }
 
     draw() {
         const colour = this.active ? this.selectedColour : this.colour;

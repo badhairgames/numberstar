@@ -57,6 +57,7 @@ class SelectNumbers {
             button.x = x;
             button.y = y;
             button.size = size;
+            button.update(elapsed);
             count++;
             x += (size * 2) + this.gap;
         }

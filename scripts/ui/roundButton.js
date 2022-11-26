@@ -22,6 +22,7 @@ class RoundButton {
         this.hitbox = this.Shapes.drawCircle(this.x, this.y, this.size, 'rgba(0,0,0,0)');
         this.clickEvent = (e) => {
             if (this.ctx.isPointInPath(this.hitbox, e.clientX, e.clientY)) {
+                console.log('Clicked');
                 this.active = !this.active;
                 if (this.callback && this.enabled) {
                     this.callback();
@@ -32,7 +33,9 @@ class RoundButton {
         document.body.addEventListener('pointerdown', this.clickEvent);
     }
 
-    update(elapsed) {}
+    update(elapsed) {
+        this.hitbox = this.Shapes.drawCircle(this.x, this.y, this.size, 'rgba(0,0,0,0)');
+    }
 
     draw() {
         const colour = this.active ? this.selectedColour : this.colour;
