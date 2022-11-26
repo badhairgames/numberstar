@@ -2,6 +2,9 @@ import { Shapes } from "../utils/shapes.js";
 import { Text } from "../utils/text.js";
 
 class RectButton {
+    get x() { return this.cx - (this.width / 2); }
+    get y() { return this.cy - (this.height / 2); }
+
     constructor(game, x, y, w, h, callback) {
         this.game = game;
         this.ctx = game.ctx;
@@ -9,8 +12,6 @@ class RectButton {
         this.height = h;
         this.cx = x;
         this.cy = y;
-        this.x = x - (this.width / 2);
-        this.y = y - (this.height / 2);
         this.colour = 'rgba(0,0,0,0.2)';
         this.selectedColour = '#BB0088';
         this.active = false;

@@ -1,19 +1,27 @@
 import { OperationButton } from "./operationButton.js";
 
 class SelectOperations {
-    get width() { return (this.columns * this.operationButtons[0].size * 2) + (this.gap * (this.columns - 1)); }
-    get height() { return (this.rows * this.operationButtons[0].size * 2) + (this.gap * (this.rows - 1)); }
+    get width() { return this.game.isPortrait ? this.game.width : this.game.width / 2; }
+    get height() { return (this.rows * this.radius * 2) + (this.gap * (this.rows - 1)); }
+
+    get widthUsed() { return this.width - this.gap - this.gap; }
     get rows() { return this.operations.length / this.columns; }
     get isValid() { return this.operationButtons.some(b => b.active); }
 
-    constructor(game, startX, startY) {
+    get startX() { return this.gap + this.radius + (this.game.isPortrait ? 0 : this.numbers.width); }
+    get startY() { return this.gap + this.radius + this.gap + (this.game.isPortrait ? this.numbers.height : this.height); }
+
+    get midX() { return this.startX - this.radius + (this.widthUsed / 2); }
+
+    get gap() { return 10; }
+    get radius() { return (this.widthUsed - ((this.columns - 1) * this.gap)) / (2 * this.columns); }
+
+    constructor(game, numbers) {
         this.game = game;
+        this.numbers = numbers;
         this.operations = '+-×÷';
         this.operationButtons = [];
         this.columns = 4;
-        this.startX = startX;
-        this.startY = startY;
-        this.gap = 10;
 
         let x = this.startX;
         let y = this.startY;
@@ -31,10 +39,16 @@ class SelectOperations {
     }
 
     setup() {
+        for (let i = 0; i < this.operationButtons.length; i++) {
+            this.operationButtons[i].setup();
+        }
+    }
+
+    update(elapsed) {
         let x = this.startX;
         let y = this.startY;
         let count = 0;
-        let size = this.operationButtons[0].size;
+        let size = this.radius;
 
         for (let i = 0; i < this.operations.length; i++) {
             if (count >= this.columns) {
@@ -46,14 +60,10 @@ class SelectOperations {
             const button = this.operationButtons[i];
             button.x = x;
             button.y = y;
-            button.setup();
+            button.size = size;
             count++;
             x += (size * 2) + this.gap;
-        }
-    }
-
-    update(elapsed) {
-    }
+        }    }
 
     draw() {
         for (let i = 0; i < this.operations.length; i++) {

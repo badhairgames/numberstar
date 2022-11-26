@@ -16,6 +16,7 @@ class Game {
 
     get width() { return this.canvas.clientWidth; }
     get height() { return this.canvas.clientHeight; }
+    get isPortrait() { return this.height > this.width; }
 
     constructor(canvas, ctx) {
         this.canvas = canvas;
