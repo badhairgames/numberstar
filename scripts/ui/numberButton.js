@@ -5,8 +5,8 @@ class NumberButton extends RoundButton {
     constructor(game, x, y, number) {
         super(game, x, y);
         this.content = number;
-        this.colour = '#BB0088';
-        this.selectedColour = '#008844';
+        this.colour = this.game.colour1;
+        this.selectedColour = this.game.colour3;
     }
 
     setup() {

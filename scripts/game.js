@@ -18,6 +18,12 @@ class Game {
     get height() { return this.canvas.clientHeight; }
     get isPortrait() { return this.height > this.width; }
 
+    get colour1() { return '#012030'; }
+    get colour2() { return '#13678A'; }
+    get colour3() { return '#45C4B0'; }
+    get colour4() { return '#9AEBA3'; }
+    get colour5() { return '#DAFDBA'; }
+
     constructor(canvas, ctx) {
         this.canvas = canvas;
         this.ctx = ctx;
