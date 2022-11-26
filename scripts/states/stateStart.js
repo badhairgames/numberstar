@@ -5,6 +5,10 @@ import { RectButton } from "../ui/rectButton.js";
 
 class StateStart extends GameState {
     get isValid() { return this.numbers.isValid && this.operators.isValid; }
+    get buttonX() { return this.operators.midX; }
+    get buttonY() { return this.operators.startY + this.operators.height + this.operators.gap; }
+    get buttonWidth() { return this.numbers.widthUsed; }
+    get buttonHeight() { return this.operators.height; }
 
     constructor(game) {
         super(game);
@@ -13,8 +17,8 @@ class StateStart extends GameState {
         this.buttonRadius = 40;
         this.gap = 10;
 
-        this.numbers = new SelectNumbers(this.game, this.startX + this.buttonRadius, this.startY + this.buttonRadius);
-        this.operators = new SelectOperations(this.game, this.startX + this.buttonRadius, this.startY + this.buttonRadius + this.numbers.height + this.numbers.gap);
+        this.numbers = new SelectNumbers(this.game);
+        this.operators = new SelectOperations(this.game, this.numbers);
     }
 
     setup() {
@@ -23,7 +27,7 @@ class StateStart extends GameState {
 
         this.button = new RectButton(
             this.game,
-            this.startX + (this.numbers.width / 2),
+            this.startX + (this.numbers.widthUsed / 2),
             this.startY + this.numbers.height + this.gap + this.operators.height + this.gap + this.buttonRadius,
             this.numbers.width,
             this.buttonRadius * 2,
@@ -38,6 +42,10 @@ class StateStart extends GameState {
 
     update(elapsed) {
         this.button.active = this.isValid;
+        this.button.cx = this.buttonX;
+        this.button.cy = this.buttonY;
+        this.button.width = this.buttonWidth;
+        this.button.height = this.buttonHeight;
 
         this.numbers.update(elapsed);
         this.operators.update(elapsed);
