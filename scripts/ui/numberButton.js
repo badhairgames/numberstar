@@ -26,7 +26,7 @@ class NumberButton extends RoundButton {
     }
 
     explode() {
-        this.explosion = new Explosion(this.game.ctx, this.x, this.y, 5);
+        this.explosion = new Explosion(this.game.ctx, this.x, this.y, 20, 500);
         this.explosion.explode(this.selectedColour);
     }
 

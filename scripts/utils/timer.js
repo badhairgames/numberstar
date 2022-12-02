@@ -24,7 +24,7 @@ class Timer {
     }
 
     explode() {
-        this.explosion = new Explosion(this.game.ctx, this.x, this.y, 5);
+        this.explosion = new Explosion(this.game.ctx, this.x, this.y, 25, 400);
         this.explosion.explode(this.selectedColour);
     }
 

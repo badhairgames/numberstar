@@ -34,7 +34,7 @@ class Lives {
 
     add(num) {
         if (num < 0) {
-            this.explosion = new Explosion(this.ctx, this.lifeX(), this.y, 3, 400);
+            this.explosion = new Explosion(this.ctx, this.lifeX(), this.y, 20, 1000);
             this.explosion.explode(this.colour);
         }
 
