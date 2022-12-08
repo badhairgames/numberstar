@@ -38,6 +38,9 @@ class Game {
         this.selectedOperators = [];
         this.score = 0;
         this.level = 1;
+        this.mode = 'standard';
+        this.difficulty = 'normal';
+
         this.resetLevelCounter();
     }
 
