@@ -3,7 +3,7 @@ import { SelectNumbers } from "../ui/selectNumbers.js";
 import { SelectOperations } from "../ui/selectOperations.js";
 import { RectButton } from "../ui/rectButton.js";
 
-class StateStart extends GameState {
+class StatePlayMenu extends GameState {
     get isValid() { return this.numbers.isValid && this.operators.isValid; }
     get buttonX() { return this.operators.midX; }
     get buttonY() { return this.operators.startY + this.operators.height + this.operators.gap; }
@@ -53,7 +53,7 @@ class StateStart extends GameState {
     }
 
     draw() {
-        this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, this.game.colour2);
+        this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, this.game.colour3);
         this.numbers.draw();
         this.operators.draw();
         this.button.draw();
@@ -69,4 +69,4 @@ class StateStart extends GameState {
     }
 }
 
-export { StateStart };
+export { StatePlayMenu };
