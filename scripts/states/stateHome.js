@@ -9,11 +9,12 @@ class StateHome extends GameState {
     setup() {
         this.buttonStandardGame = new RoundButton(this.game, 100, 100, () => {
             this.game.mode = 'standard';
+            this.game.changeState(this.game.statePlayMenu);
         });
 
         this.buttonPracticeGame = new RoundButton(this.game, 400, 100, () => {
             this.game.mode = 'practice';
-            this.game.changeState(this.game.stateStart);
+            this.game.changeState(this.game.statePracticeMenu);
         });
 
         this.buttonStandardGame.content = 'play';
@@ -26,7 +27,7 @@ class StateHome extends GameState {
         this.buttonPracticeGame.setup();
 
         this.clickEvent = (e) => {
-            // this.game.changeState(this.game.stateStart);
+            // this.game.changeState(this.game.statePracticeMenu);
         };
         
         document.body.addEventListener('pointerdown', this.clickEvent);
