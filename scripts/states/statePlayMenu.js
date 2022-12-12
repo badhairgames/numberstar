@@ -1,71 +1,80 @@
 import { GameState } from "./gameState.js";
-import { SelectNumbers } from "../ui/selectNumbers.js";
-import { SelectOperations } from "../ui/selectOperations.js";
 import { RectButton } from "../ui/rectButton.js";
 
 class StatePlayMenu extends GameState {
-    get isValid() { return this.numbers.isValid && this.operators.isValid; }
-    get buttonX() { return this.operators.midX; }
-    get buttonY() { return this.operators.startY + this.operators.height + this.operators.gap; }
-    get buttonWidth() { return this.numbers.widthUsed; }
-    get buttonHeight() { return this.operators.height; }
+    get buttonX() { return this.game.width / 2; }
+    get buttonY() { return this.buttonHeight; }
+    get buttonWidth() { return this.game.width * 0.9; }
+    get buttonHeight() { return this.buttonRadius * 2; }
 
     constructor(game) {
         super(game);
-        this.startX = 10;
-        this.startY = 10;
         this.buttonRadius = 40;
         this.gap = 10;
-
-        this.numbers = new SelectNumbers(this.game);
-        this.operators = new SelectOperations(this.game, this.numbers);
     }
 
     setup() {
-        this.numbers.setup();
-        this.operators.setup();
+        this.buttonEasy = this.buttonSetup('EASY', 0);
+        this.buttonMedium = this.buttonSetup('NORMAL', 1);
+        this.buttonHard = this.buttonSetup('HARD', 2);
+        this.buttonInsane = this.buttonSetup('INSANE', 3);
+    }
 
-        this.button = new RectButton(
+    buttonSetup(content, index) {
+        const btn = new RectButton(
             this.game,
-            this.startX + (this.numbers.widthUsed / 2),
-            this.startY + this.numbers.height + this.gap + this.operators.height + this.gap + this.buttonRadius,
-            this.numbers.width,
-            this.buttonRadius * 2,
+            this.buttonX,
+            this.buttonY + ((this.gap + this.buttonHeight) * index),
+            this.buttonWidth,
+            this.buttonHeight,
             () => {
-                if (this.isValid) {
-                    this.game.changeState(this.game.statePlay);
-                }
+                this.game.difficulty = content.toLowerCase();
+                this.game.changeState(this.game.statePlay);
             });
-        this.button.content = 'START';
-        this.button.setup();
+        btn.content = content;
+        btn.setup();
+        return btn;
     }
 
     update(elapsed) {
-        this.button.active = this.isValid;
-        this.button.cx = this.buttonX;
-        this.button.cy = this.buttonY;
-        this.button.width = this.buttonWidth;
-        this.button.height = this.buttonHeight;
-
-        this.numbers.update(elapsed);
-        this.operators.update(elapsed);
-        this.button.update(elapsed);
     }
 
     draw() {
         this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, this.game.colour3);
-        this.numbers.draw();
-        this.operators.draw();
-        this.button.draw();
+        this.buttonEasy.draw();
+        this.buttonMedium.draw();
+        this.buttonHard.draw();
+        this.buttonInsane.draw();
     }
     
     teardown() {
-        this.game.selectedNumbers.push(...this.numbers.getSelectedNumbers());
-        this.game.selectedOperators.push(...this.operators.getSelectedOperations());
+        switch(this.game.difficulty) {
+            case 'easy':
+                this.game.selectedNumbers.push(1, 2, 3);
+                this.game.selectedOperators.push('+');
+                break;
+            case 'normal':
+                this.game.selectedNumbers.push(1, 2, 3, 4, 5, 6);
+                this.game.selectedOperators.push('+', '-');
+                break;
+            case 'hard':
+                this.game.selectedNumbers.push(1, 2, 3, 4, 5, 6, 7, 8, 9);
+                this.game.selectedOperators.push('+', '-', '×');
+                break;
+            case 'insane':
+                this.game.selectedNumbers.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+                this.game.selectedOperators.push('+', '-', '×', '÷');
+                break;
+            default:
+                this.game.selectedNumbers.push(1, 2, 3);
+                this.game.selectedOperators.push('+');
+                break;
+        }
 
-        this.numbers.teardown();
-        this.operators.teardown();
-        this.button.teardown();
+        this.buttonEasy.teardown();
+        this.buttonMedium.teardown();
+        this.buttonHard.teardown();
+        this.buttonInsane.teardown();
     }
 }
 
