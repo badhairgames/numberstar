@@ -28,7 +28,8 @@ class Question {
     getNumber2() {
         const lrBound = Math.max(1, this.game.level - 3);
         const uprBound = (this.game.level + 2) * 2;
-        return this.getRandomInt(lrBound, uprBound);
+        const multiplier = this.getRangeMultiplier();
+        return this.getRandomInt(lrBound, uprBound) * multiplier;
     }
 
     getOperator() {
@@ -109,6 +110,20 @@ class Question {
         var answerPos = this.getRandomInt(0, this.choices.length);
         [this.choices[0], this.choices[answerPos]] = [this.choices[answerPos], this.choices[0]];
     }
+
+    getRangeMultiplier() {
+        switch(this.game.difficulty) {
+            case 'easy':
+                return 1;
+            case 'normal':
+                return 2;
+            case 'hard':
+                return 3;
+            case 'insane':
+                return 6;
+            default:
+                return 1;
+        }    }
 
     equals(other) {
         return this.number1 === other.number1 && this.number2 === other.number2 && this.operator === other.operator;
