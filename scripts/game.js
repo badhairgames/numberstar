@@ -4,13 +4,16 @@ import { StatePlay } from "./states/statePlay.js";
 import { StateGameOver } from "./states/stateGameOver.js";
 import { Drawing } from "./utils/drawing.js";
 import { StatePlayMenu } from "./states/statePlayMenu.js";
+import { StateTimedMenu } from "./states/stateTimedMenu.js";
 
 class Game {
     get stateHome() { return 0; }
-    get statePracticeMenu() { return 1; }
-    get statePlayMenu() { return 2; }
-    get statePlay() { return 3; }
-    get stateGameOver() { return 4; }
+    get statePracticeMenu() { return this.stateHome + 1; }
+    get stateTimedMenu() { return this.statePracticeMenu + 1; }
+    get statePlayMenu() { return this.stateTimedMenu + 1; }
+    get statePlay() { return this.statePlayMenu + 1; }
+    get stateGameOver() { return this.statePlay + 1; }
+
     get canAdd() { return this.selectedOperators.includes('+'); }
     get canSubtract() { return this.selectedOperators.includes('-'); }
     get canMultiply() { return this.selectedOperators.includes('×'); }
@@ -32,7 +35,14 @@ class Game {
         this.currentTimestamp = 0;
         this.gfx = new Drawing(this);
 
-        this.states = [new StateHome(this), new StatePracticeMenu(this), new StatePlayMenu(this), new StatePlay(this), new StateGameOver(this)];
+        this.states = [
+            new StateHome(this),
+            new StatePracticeMenu(this),
+            new StateTimedMenu(this),
+            new StatePlayMenu(this),
+            new StatePlay(this),
+            new StateGameOver(this)
+        ];
         this.state = this.states[this.stateHome];
         this.state.setup();
 
