@@ -1,36 +1,39 @@
-import { RoundButton } from "../ui/roundButton.js";
 import { GameState } from "./gameState.js";
+import { RectButton } from "../ui/rectButton.js";
 
 class StateHome extends GameState {
+    get buttonX() { return this.game.width / 2; }
+    get buttonY() { return this.buttonHeight; }
+    get buttonWidth() { return this.game.width * 0.9; }
+    get buttonHeight() { return this.buttonRadius * 2; }
+
     constructor(game) {
         super(game);
+
+        this.buttonRadius = 40;
+        this.gap = 10;
     }
 
     setup() {
-        this.buttonStandardGame = new RoundButton(this.game, 100, 100, () => {
-            this.game.mode = 'standard';
-            this.game.changeState(this.game.statePlayMenu);
-        });
+        this.buttonStandardGame = this.buttonSetup('PLAY', this.game.statePlayMenu, 0);
+        this.buttonTimedGame = this.buttonSetup('TIMED', this.game.stateTimedMenu, 1);
+        this.buttonPracticeGame = this.buttonSetup('PRACTICE', this.game.statePracticeMenu, 2);
+    }
 
-        this.buttonPracticeGame = new RoundButton(this.game, 400, 100, () => {
-            this.game.mode = 'practice';
-            this.game.changeState(this.game.statePracticeMenu);
-        });
-
-        this.buttonStandardGame.content = 'play';
-        this.buttonPracticeGame.content = 'practice';
-
-        this.buttonStandardGame.size = 60;
-        this.buttonPracticeGame.size = 60;
-
-        this.buttonStandardGame.setup();
-        this.buttonPracticeGame.setup();
-
-        this.clickEvent = (e) => {
-            // this.game.changeState(this.game.statePracticeMenu);
-        };
-        
-        document.body.addEventListener('pointerdown', this.clickEvent);
+    buttonSetup(content, nextState, index) {
+        const btn = new RectButton(
+            this.game,
+            this.buttonX,
+            this.buttonY + ((this.gap + this.buttonHeight) * index),
+            this.buttonWidth,
+            this.buttonHeight,
+            () => {
+                this.game.mode = content.toLowerCase();
+                this.game.changeState(nextState);
+            });
+        btn.content = content;
+        btn.setup();
+        return btn;
     }
 
     update(elapsed) {
@@ -38,13 +41,16 @@ class StateHome extends GameState {
 
     draw() {
         this.game.gfx.shapes.drawRect(0, 0, this.game.width, this.game.height, this.game.colour2);
-        this.game.gfx.text.drawBigMessage('Home', this.game.colour5);
+        // this.game.gfx.text.drawBigMessage('Home', this.game.colour5);
         this.buttonStandardGame.draw();
+        this.buttonTimedGame.draw();
         this.buttonPracticeGame.draw();
     }
     
     teardown() {
-        document.body.removeEventListener('pointerdown', this.clickEvent);
+        this.buttonStandardGame.teardown();
+        this.buttonTimedGame.teardown();
+        this.buttonPracticeGame.teardown();
     }
 }
 
