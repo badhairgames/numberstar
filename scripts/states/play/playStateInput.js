@@ -8,7 +8,9 @@ class PlayStateInput extends PlayState {
     }
 
     setup() {
-        this.parent.timer.reset();
+        if (this.game.mode === 'play') {
+            this.parent.timer.reset();
+        }
     }
 
     update(elapsed) {

@@ -2,10 +2,17 @@ import { Explosion } from "./explosion.js";
 class Timer {
     get x() { return this.game.width / 2; }
     get y() { return this.game.height * 0.8; }
+    get time() { switch (this.game.mode) {
+        case 'play':
+            return 3000;
+        default:
+            return 60000;
+    }}
 
     constructor(game) {
         this.game = game;
         this.selectedColour = '#BB0000';
+        this.reset();
     }
 
     update(elapsed) {
@@ -29,7 +36,7 @@ class Timer {
     }
 
     reset() {
-        this.timerStart = 3000;
+        this.timerStart = this.time;
         this.remaining = this.timerStart;
     }
 
