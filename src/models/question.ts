@@ -1,7 +1,9 @@
 import { Difficulty } from "../enums/difficulty";
+import type { Game } from "./game";
 import type { GameOptions } from "./gameOptions";
 
 export class Question {
+    game: Game;
     options: GameOptions;
     selectedNumbersCount: number;
     selectedOperatorsCount: number;
@@ -12,8 +14,9 @@ export class Question {
     choices: number[];
     content: string;
 
-    constructor(options: GameOptions, currentQuestion: Question) {
-        this.options = options;
+    constructor(game: Game, currentQuestion: Question) {
+        this.game = game;
+        this.options = game.options;
         this.selectedNumbersCount = this.options.numbers.length;
         this.selectedOperatorsCount = this.options.operators.length;
 
@@ -39,8 +42,8 @@ export class Question {
     }
 
     getNumber2(): number {
-        const lrBound = Math.max(1, this.options.level - 3);
-        const uprBound = (this.options.level + 2) * 2;
+        const lrBound = Math.max(1, this.game.level - 3);
+        const uprBound = (this.game.level + 2) * 2;
         const multiplier = this.getRangeMultiplier();
         return this.getRandomInt(lrBound, uprBound) * multiplier;
     }

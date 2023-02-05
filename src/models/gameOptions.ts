@@ -6,5 +6,4 @@ export class GameOptions {
     public difficulty: Difficulty;
     public numbers: number[] = [];
     public operators: string[] = [];
-    public level: number = 1;
 }

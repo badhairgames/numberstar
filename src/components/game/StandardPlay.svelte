@@ -12,7 +12,8 @@
     let currentQuestion: Question = null;
     let optionsComponent;
     let timerComponent;
-    let timePerQuestion = 3000;
+    let timePerQuestion: number = game.timePerQuestion;
+    let levelCounter: number = game.levelCounter;
 
     function resetQuestion() {
         if (timerComponent) {
@@ -24,7 +25,7 @@
             return;
         }
 
-        currentQuestion = new Question(game.options, currentQuestion);
+        currentQuestion = new Question(game, currentQuestion);
         if (timerComponent) {
             timerComponent.reset();
         }
@@ -35,6 +36,10 @@
         timerComponent.pause();
         game.score += correct ? 1 : 0;
         game.lives -= correct ? 0 : 1;
+        levelCounter += correct ? -1 : 0;
+        if (levelCounter <= 0) {
+            levelUp();
+        }
 
         setTimeout(() => {
             resetQuestion();
@@ -46,6 +51,29 @@
         timerComponent.pause();
         game.lives -= 1;
         resetQuestion();
+    }
+
+    function levelUp() {
+        game.level++;
+        levelCounter = game.levelCounter;
+        timePerQuestion *= game.levelTimeDelta;
+
+        for (let i = 1; i < game.options.numbers.length + 10; i++) {
+            if (game.options.numbers.indexOf(i) < 0) {
+                game.options.numbers.push(i);
+                break;
+            }
+        }
+
+        if (game.options.operators.length < 4 && (game.level % 2) === 0) {
+            const operators = ["+", "-", "×", "÷"];
+            for (let i = 0; i < operators.length; i++) {
+                if (game.options.operators.indexOf(operators[i]) < 0) {
+                    game.options.operators.push(operators[i]);
+                    break;
+                }
+            }
+        }
     }
 
     resetQuestion();
