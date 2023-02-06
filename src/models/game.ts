@@ -24,7 +24,7 @@ export class Game {
         this.score = 0;
         this.pauseCorrectAnswer = 200;
         this.pauseIncorrectAnswer = 500;
-        this.defaultGameTime = 10000;
+        this.defaultGameTime = 30000;
         this.timePerQuestion = 3000;
         this.levelCounter = 10;
         this.levelTimeDelta = 0.95;

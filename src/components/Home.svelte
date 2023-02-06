@@ -23,11 +23,6 @@
     ul {
         li {
             padding-bottom: 1em;
-
-            button {
-                width: 100%;
-                text-transform: uppercase;
-            }
         }
     }
 </style>
