@@ -16,7 +16,7 @@
     let showLives = false;
 
     function resetQuestion() {
-        currentQuestion = new Question(game.options, currentQuestion);
+        currentQuestion = new Question(game, currentQuestion);
     }
 
     function answered(event) {
