@@ -5,6 +5,7 @@ export class History {
     gamesPlayed: number = 0;
     maxStreak: number = 0;
     currentStreak: number = 0;
+    currentDate: Date;
     stats: HistoryGame[] = [];
 }
 

@@ -14,4 +14,4 @@ can within a minute.
 
 ## Building the code
 This project was built using [Svelte](https://svelte.dev) and requires Node / NPM to be installed on your machine.
-Run `npm install` after cloning, then `npm run dev` to run it locally, usually on port 8080.
+Run `npm install` after cloning, then `npm run dev` to run it locally, usually on port 8123.

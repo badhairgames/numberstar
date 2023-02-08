@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Game } from "../models/game";
     import { History, history } from "../stores/history";
+    import { HistoryFunctions } from "../stores/historyFunctions";
 
     export let game: Game;
 
@@ -8,7 +9,8 @@
         $history = new History();
     }
 
-    $history.gamesPlayed++;
+    HistoryFunctions.update($history, game);
+    $history.gamesPlayed = $history.gamesPlayed;
 </script>
 
 <h1>Game Over</h1>
