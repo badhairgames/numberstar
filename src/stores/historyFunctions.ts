@@ -7,7 +7,11 @@ export class HistoryFunctions {
         HistoryFunctions.setStreak(history);
         history.gamesPlayed++;
         const item = HistoryFunctions.getHistoryGame(history, game);
-        // TODO: Add in new game into last 10 games, then update high score.
+        if (item.last10Games.length == 10) {
+            item.last10Games.shift();
+        }
+        item.last10Games.push(game.score);
+        item.highScore = Math.max(item.highScore, game.score);
     }
 
     static getHistoryGame(history: History, game: Game): HistoryGame {
