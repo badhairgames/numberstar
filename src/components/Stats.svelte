@@ -1,9 +1,18 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
+    import { GameMode } from "../enums/gameMode";
     import { history } from "../stores/history";
     import CloseButton from "./buttons/CloseButton.svelte";
 
     const dispatch = createEventDispatcher();
+
+    function getModes() {
+        return Object.keys(GameMode).filter(key => !isNaN(Number(GameMode[key])));
+    }
+
+    function getDifficulties() {
+
+    }
 </script>
 
 <CloseButton on:close={() => dispatch('close')}></CloseButton>
@@ -23,6 +32,14 @@
         <div class="value">{$history?.currentStreak ?? 0}</div>
         <div class="text">Current Streak</div>
     </div>
+</div>
+
+<div class="chooser">
+    <select>
+        {#each getModes() as mode, i}
+        <option value="{i}">{mode}</option>
+        {/each}
+    </select>
 </div>
 
 
