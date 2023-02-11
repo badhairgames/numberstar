@@ -1,18 +1,48 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
+    import { Difficulty } from "../enums/difficulty";
     import { GameMode } from "../enums/gameMode";
     import { history } from "../stores/history";
+    import type { HistoryGame } from "../stores/historyGame";
     import CloseButton from "./buttons/CloseButton.svelte";
 
     const dispatch = createEventDispatcher();
+
+    let selectedMode = GameMode.standard;
+    let selectedDifficulty = Difficulty.medium;
+    let showSecondDropdown = true;
+    let selectedHistory: HistoryGame;
 
     function getModes() {
         return Object.keys(GameMode).filter(key => !isNaN(Number(GameMode[key])));
     }
 
     function getDifficulties() {
-
+        return Object.keys(Difficulty).filter(key => !isNaN(Number(Difficulty[key])));
     }
+
+    function selectMode() {
+        switch (selectedMode as GameMode) {
+            case GameMode.timed:
+                showSecondDropdown = true;
+                break;
+            case GameMode.practice:
+                showSecondDropdown = false;
+                break;
+            default:
+                showSecondDropdown = true;
+        }
+
+        getSelectedHistory();
+    }
+
+    function getSelectedHistory() {
+        selectedHistory = $history?.stats.find(
+            s => s.mode === selectedMode
+                && (selectedMode === GameMode.practice || s.difficulty === selectedDifficulty));
+    }
+
+    selectMode();
 </script>
 
 <CloseButton on:close={() => dispatch('close')}></CloseButton>
@@ -35,13 +65,25 @@
 </div>
 
 <div class="chooser">
-    <select>
+    <select bind:value={selectedMode} on:change={selectMode}>
         {#each getModes() as mode, i}
         <option value="{i}">{mode}</option>
         {/each}
     </select>
+    {#if showSecondDropdown}
+    <select bind:value={selectedDifficulty} on:change={getSelectedHistory}>
+        {#each getDifficulties() as mode, i}
+        <option value="{i}">{mode}</option>
+        {/each}
+    </select>
+    {/if}
 </div>
 
+{#if selectedHistory}
+    High Score: {selectedHistory.highScore}
+{:else}
+    <p>No statistics for this game type.</p>
+{/if}
 
 <style lang="scss">
     .mainStats {
@@ -65,6 +107,17 @@
                 font-size: 0.8em;
                 text-transform: uppercase;
             }
+        }
+    }
+
+    .chooser {
+        select {
+            width: 45%;
+            box-sizing: border-box;
+            padding: 0.5em;
+            text-transform: uppercase;
+            border:1px solid #AAAAAA;
+            border-radius: 1em;
         }
     }
 </style>
