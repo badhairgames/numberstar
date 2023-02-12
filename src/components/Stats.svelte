@@ -165,7 +165,7 @@
             padding: 0.5em;
             text-transform: uppercase;
             border: 1px solid #aaaaaa;
-            border-radius: 1em;
+            border-radius: 0.5em;
             font-size: 0.8em;
         }
     }
