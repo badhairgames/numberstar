@@ -189,6 +189,7 @@
     }
 
     .last10games {
+
         h2 {
             font-size: 0.8em;
             text-transform: uppercase;
@@ -196,10 +197,14 @@
         }
 
         .graph {
+            border-left: 2px solid #0d6fa7;
+            border-bottom: 2px solid #0d6fa7;
             display: flex;
             justify-content: space-evenly;
             align-items: flex-end;
             height: 200px;
+            padding-bottom: 2px;
+            
             .bar {
                 background: #777;
                 width: 9%;
