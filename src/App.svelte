@@ -48,15 +48,14 @@
 	main {
         position: relative;
 		text-align: center;
-		padding: 0;
-		max-width: 400px;
+		padding: 0 1em;
 		margin: 0 auto;
         overflow: hidden;
 	}
 
 	@media (min-width: 640px) {
 		main {
-			// max-width: none;
+			max-width: 640px;
 		}
 	}
 </style>
