@@ -83,7 +83,7 @@
         <div class="text">Max Streak</div>
     </div>
     <div class="stat">
-        <div class="value">{getCurrentStreak($history)}</div>
+        <div class="value">{getCurrentStreak()}</div>
         <div class="text">Current Streak</div>
     </div>
 </div>
