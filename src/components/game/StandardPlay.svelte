@@ -58,13 +58,12 @@
         levelCounter = game.levelCounter;
         timePerQuestion *= game.levelTimeDelta;
 
-        for (let i = 1; i < game.options.numbers.length + 10; i++) {
-            if (game.options.numbers.indexOf(i) < 0) {
-                game.options.numbers.push(i);
-                break;
-            }
-        }
+        // Remove easier questions, add higher numbers.
+        game.options.numbers.shift();
+        const maxNumber = Math.max(...game.options.numbers);
+        game.options.numbers.push (maxNumber + 1);
 
+        // Add another operator every second level.
         if (game.options.operators.length < 4 && (game.level % 2) === 0) {
             const operators = ["+", "-", "×", "÷"];
             for (let i = 0; i < operators.length; i++) {
@@ -85,6 +84,9 @@
 <Options bind:currentQuestion on:answer={answered} bind:this={optionsComponent}></Options>
 <Timer on:timeout={outOfTime} bind:time={timePerQuestion} bind:this={timerComponent}></Timer>
 {/if}
+
+<p>{game.options.numbers}</p>
+<p>{Math.max(1, game.level - 3)} - {(game.level + 2) * 2}</p>
 
 <style lang="scss">
     .question {

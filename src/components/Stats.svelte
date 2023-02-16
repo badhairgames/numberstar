@@ -68,6 +68,12 @@
         return score === maxScoreFromLast10 ? score.toString() : '';
     }
 
+    function getMaxStreak(): number {
+        if (!$history) return 0;
+        getCurrentStreak();
+        return $history.maxStreak;
+    }
+
     selectMode();
 </script>
 
@@ -79,7 +85,7 @@
         <div class="text">Played</div>
     </div>
     <div class="stat">
-        <div class="value">{$history?.maxStreak ?? 0}</div>
+        <div class="value">{getMaxStreak()}</div>
         <div class="text">Max Streak</div>
     </div>
     <div class="stat">
