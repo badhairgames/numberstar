@@ -22,12 +22,23 @@
         return $history.currentStreak;
     }
 
-    function getModes() {
+    function getModes(): string[] {
         return Object.keys(GameMode).filter((key) => !isNaN(Number(GameMode[key])));
     }
 
-    function getDifficulties() {
+    function getDifficulties(): string[] {
         return Object.keys(Difficulty).filter((key) => !isNaN(Number(Difficulty[key])));
+    }
+
+    function setDefaults() {
+        if (!$history?.stats || $history.stats.length === 0) return;
+        let stat = $history.stats.find(s => s.last10Games.length > 0);
+        if (!stat) {
+            stat = $history.stats[0];
+        }
+
+        selectedMode = stat.mode;
+        selectedDifficulty = stat.difficulty;
     }
 
     function selectMode() {
@@ -74,6 +85,7 @@
         return $history.maxStreak;
     }
 
+    setDefaults();
     selectMode();
 </script>
 
