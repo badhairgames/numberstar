@@ -85,9 +85,6 @@
 <Timer on:timeout={outOfTime} bind:time={timePerQuestion} bind:this={timerComponent}></Timer>
 {/if}
 
-<p>{game.options.numbers}</p>
-<p>{Math.max(1, game.level - 3)} - {(game.level + 2) * 2}</p>
-
 <style lang="scss">
     .question {
         font-size: 3em;
