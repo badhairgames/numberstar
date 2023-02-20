@@ -28,6 +28,9 @@ export class Question {
             this.number2 = this.getNumber2(); 
 
             requiresQuestion = currentQuestion != undefined && this.equals(currentQuestion);
+            if (this.operator === '-') {
+                requiresQuestion = requiresQuestion || (this.number1 === this.number2);
+            }
         }
 
         this.fixNumbers();
