@@ -1,19 +1,22 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import type { Game } from "../../models/game";
-    import { Question } from "../../models/question";
+    import { textfit } from 'svelte-textfit';
+    import type { Game } from '../../models/game';
+    import { Question } from '../../models/question';
     import Timer from './Timer.svelte';
-    import Info from "./Info.svelte";
-    import Options from "./Options.svelte";
+    import Info from './Info.svelte';
+    import Options from './Options.svelte';
 
     export let game: Game;
     const dispatch = createEventDispatcher();
 
     let currentQuestion: Question = null;
+    let questionComponent;
     let optionsComponent;
     let timerComponent;
     let timePerQuestion: number = game.timePerQuestion;
     let levelCounter: number = game.levelCounter;
+    let questionUpdate = 1;
 
     function resetQuestion() {
         if (timerComponent) {
@@ -29,6 +32,8 @@
         if (timerComponent) {
             timerComponent.reset();
         }
+
+        questionUpdate++;
     }
 
     function answered(event) {
@@ -41,10 +46,13 @@
             levelUp();
         }
 
-        setTimeout(() => {
-            resetQuestion();
-            optionsComponent.reset();
-        }, correct ? game.pauseCorrectAnswer : game.pauseIncorrectAnswer);
+        setTimeout(
+            () => {
+                resetQuestion();
+                optionsComponent.reset();
+            },
+            correct ? game.pauseCorrectAnswer : game.pauseIncorrectAnswer
+        );
     }
 
     function outOfTime() {
@@ -61,11 +69,11 @@
         // Remove easier questions, add higher numbers.
         game.options.numbers.shift();
         const maxNumber = Math.max(...game.options.numbers);
-        game.options.numbers.push (maxNumber + 1);
+        game.options.numbers.push(maxNumber + 1);
 
         // Add another operator every second level.
-        if (game.options.operators.length < 4 && (game.level % 2) === 0) {
-            const operators = ["+", "-", "×", "÷"];
+        if (game.options.operators.length < 4 && game.level % 2 === 0) {
+            const operators = ['+', '-', '×', '÷'];
             for (let i = 0; i < operators.length; i++) {
                 if (game.options.operators.indexOf(operators[i]) < 0) {
                     game.options.operators.push(operators[i]);
@@ -79,15 +87,45 @@
 </script>
 
 {#if currentQuestion}
-<Info bind:game></Info>
-<div class="question">{currentQuestion.content}</div>
-<Options bind:currentQuestion on:answer={answered} bind:this={optionsComponent}></Options>
-<Timer on:timeout={outOfTime} bind:time={timePerQuestion} bind:this={timerComponent}></Timer>
+    <div class="container">
+        <div class="info">
+            <Info bind:game />
+        </div>
+        <div class="question" bind:this={questionComponent}>
+            <div use:textfit={{parent:questionComponent, mode:"single", min: 12, max: 300, autoResize: true, forceSingleModeWidth: false}}>{currentQuestion.content}</div>
+        </div>
+        <div class="options">
+            <Options bind:currentQuestion on:answer={answered} bind:this={optionsComponent} />
+        </div>
+        <div class="timer">
+            <Timer on:timeout={outOfTime} bind:time={timePerQuestion} bind:this={timerComponent} />
+        </div>
+    </div>
 {/if}
 
 <style lang="scss">
-    .question {
-        font-size: 3em;
-        font-weight: bold;
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100vh;
+
+        .info {
+            flex: 1;
+        }
+
+        .question {
+            font-weight: bold;
+            flex: 3;
+        }
+
+        .options {
+            flex: 3;
+        }
+
+        .timer {
+            flex: 2;
+            padding-bottom: 1em;
+        }
     }
 </style>

@@ -39,15 +39,20 @@
 </script>
 
 {#if currentQuestion}
-<Info bind:game bind:showLives={showLives}></Info>
-<div class="question">{currentQuestion.content}</div>
-<Options bind:currentQuestion on:answer={answered} bind:this={optionsComponent}></Options>
-<Timer on:timeout={outOfTime} bind:time={timeForGame} bind:this={timerComponent}></Timer>
+<div class="container">
+    <Info bind:game bind:showLives={showLives}></Info>
+    <div class="question">{currentQuestion.content}</div>
+    <Options bind:currentQuestion on:answer={answered} bind:this={optionsComponent}></Options>
+    <Timer on:timeout={outOfTime} bind:time={timeForGame} bind:this={timerComponent}></Timer>
+</div>
 {/if}
 
 <style lang="scss">
-    .question {
-        font-size: 3em;
-        font-weight: bold;
+    .container {
+        display: flex;
+        .question {
+            font-size: 3em;
+            font-weight: bold;
+        }
     }
 </style>

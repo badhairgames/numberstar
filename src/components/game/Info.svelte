@@ -18,6 +18,7 @@
         flex-wrap: wrap;
         justify-content:space-between;
         align-content: center;
+        background: rgba(0,0,0,0.3);
 
         .score {
             font-size: 1.2em;

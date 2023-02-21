@@ -83,7 +83,7 @@
     .timer {
         position: relative;
         width: 100%;
-        height: 20px;
+        height: 50%;
         background-color: #999;
 
         .remaining {

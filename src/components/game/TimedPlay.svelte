@@ -1,10 +1,10 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import type { Game } from "../../models/game";
-    import { Question } from "../../models/question";
+    import type { Game } from '../../models/game';
+    import { Question } from '../../models/question';
     import Timer from './Timer.svelte';
-    import Info from "./Info.svelte";
-    import Options from "./Options.svelte";
+    import Info from './Info.svelte';
+    import Options from './Options.svelte';
 
     export let game: Game;
     const dispatch = createEventDispatcher();
@@ -24,10 +24,13 @@
         game.score += correct ? 1 : 0;
         game.lives -= correct ? 0 : 1;
 
-        setTimeout(() => {
-            resetQuestion();
-            optionsComponent.reset();
-        }, correct ? game.pauseCorrectAnswer : game.pauseIncorrectAnswer);
+        setTimeout(
+            () => {
+                resetQuestion();
+                optionsComponent.reset();
+            },
+            correct ? game.pauseCorrectAnswer : game.pauseIncorrectAnswer
+        );
     }
 
     function outOfTime() {
@@ -39,15 +42,19 @@
 </script>
 
 {#if currentQuestion}
-<Info bind:game bind:showLives={showLives}></Info>
-<div class="question">{currentQuestion.content}</div>
-<Options bind:currentQuestion on:answer={answered} bind:this={optionsComponent}></Options>
-<Timer on:timeout={outOfTime} bind:time={timeForGame} bind:this={timerComponent}></Timer>
+    <div class="container">
+        <Info bind:game bind:showLives />
+        <div class="question">{currentQuestion.content}</div>
+        <Options bind:currentQuestion on:answer={answered} bind:this={optionsComponent} />
+        <Timer on:timeout={outOfTime} bind:time={timeForGame} bind:this={timerComponent} />
+    </div>
 {/if}
 
 <style lang="scss">
-    .question {
-        font-size: 3em;
-        font-weight: bold;
+    .container {
+        .question {
+            font-size: 3em;
+            font-weight: bold;
+        }
     }
 </style>
