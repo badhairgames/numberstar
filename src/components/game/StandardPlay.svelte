@@ -12,11 +12,15 @@
 
     let currentQuestion: Question = null;
     let questionComponent;
+    let questionText;
     let optionsComponent;
     let timerComponent;
     let timePerQuestion: number = game.timePerQuestion;
     let levelCounter: number = game.levelCounter;
-    let questionUpdate = 1;
+
+    $: questionWidth = questionComponent?.offsetWidth ?? 0;
+    $: questionTextWidth = questionText?.offsetWidth ?? 0;
+    let test;
 
     function resetQuestion() {
         if (timerComponent) {
@@ -33,7 +37,9 @@
             timerComponent.reset();
         }
 
-        questionUpdate++;
+        test = `${questionWidth} / ${questionTextWidth}`;
+        var scale = questionWidth / questionTextWidth;
+        if (questionText) questionText.style.transform = `scale(${scale ?? 1})`;
     }
 
     function answered(event) {
@@ -92,13 +98,14 @@
             <Info bind:game />
         </div>
         <div class="question" bind:this={questionComponent}>
-            <div use:textfit={{parent:questionComponent, mode:"single", min: 12, max: 300, autoResize: true, forceSingleModeWidth: false}}>{currentQuestion.content}</div>
+            <span bind:this={questionText}>{currentQuestion.content}</span>
         </div>
         <div class="options">
             <Options bind:currentQuestion on:answer={answered} bind:this={optionsComponent} />
         </div>
         <div class="timer">
             <Timer on:timeout={outOfTime} bind:time={timePerQuestion} bind:this={timerComponent} />
+            {test}
         </div>
     </div>
 {/if}
@@ -115,8 +122,13 @@
         }
 
         .question {
+            position: relative;
             font-weight: bold;
             flex: 3;
+
+            span {
+                position: absolute;
+            }
         }
 
         .options {
