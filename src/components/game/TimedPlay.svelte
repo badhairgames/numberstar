@@ -45,15 +45,6 @@
     resetQuestion();
 </script>
 
-<!--{#if currentQuestion}
-    <div class="container">
-        <Info bind:game bind:showLives />
-        <div class="question">{currentQuestion.content}</div>
-        <Options bind:currentQuestion on:answer={answered} bind:this={optionsComponent} />
-        <Timer on:timeout={outOfTime} bind:time={timeForGame} bind:this={timerComponent} />
-    </div>
-{/if}-->
-
 {#if currentQuestion}
     <div class="container">
         <div class="info">
