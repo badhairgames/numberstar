@@ -6,21 +6,18 @@
     import Timer from './Timer.svelte';
     import Info from './Info.svelte';
     import Options from './Options.svelte';
+    import QuestionDisplay from './QuestionDisplay.svelte';
 
     export let game: Game;
     const dispatch = createEventDispatcher();
 
     let currentQuestion: Question = null;
     let questionComponent;
-    let questionText;
     let optionsComponent;
     let timerComponent;
     let timePerQuestion: number = game.timePerQuestion;
     let levelCounter: number = game.levelCounter;
-
-    $: questionWidth = questionComponent?.offsetWidth ?? 0;
-    $: questionTextWidth = questionText?.offsetWidth ?? 0;
-    let test;
+    $: questionWidth = questionComponent?.getBoundingClientRect().width ?? 1;
 
     function resetQuestion() {
         if (timerComponent) {
@@ -36,10 +33,6 @@
         if (timerComponent) {
             timerComponent.reset();
         }
-
-        test = `${questionWidth} / ${questionTextWidth}`;
-        var scale = questionWidth / questionTextWidth;
-        if (questionText) questionText.style.transform = `scale(${scale ?? 1})`;
     }
 
     function answered(event) {
@@ -98,14 +91,14 @@
             <Info bind:game />
         </div>
         <div class="question" bind:this={questionComponent}>
-            <span bind:this={questionText}>{currentQuestion.content}</span>
+            <QuestionDisplay bind:question={currentQuestion.content} bind:questionWidth={questionWidth}></QuestionDisplay>
+            <!--<span bind:this={questionText} style="transform:scale({scale})">{currentQuestion.content}</span>-->
         </div>
         <div class="options">
             <Options bind:currentQuestion on:answer={answered} bind:this={optionsComponent} />
         </div>
         <div class="timer">
             <Timer on:timeout={outOfTime} bind:time={timePerQuestion} bind:this={timerComponent} />
-            {test}
         </div>
     </div>
 {/if}
@@ -125,10 +118,6 @@
             position: relative;
             font-weight: bold;
             flex: 3;
-
-            span {
-                position: absolute;
-            }
         }
 
         .options {
