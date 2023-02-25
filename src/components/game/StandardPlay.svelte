@@ -1,6 +1,5 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import { textfit } from 'svelte-textfit';
     import type { Game } from '../../models/game';
     import { Question } from '../../models/question';
     import Timer from './Timer.svelte';
@@ -17,7 +16,8 @@
     let timerComponent;
     let timePerQuestion: number = game.timePerQuestion;
     let levelCounter: number = game.levelCounter;
-    $: questionWidth = questionComponent?.getBoundingClientRect().width ?? 1;
+    let questionWidth;
+    let questionHeight;
 
     function resetQuestion() {
         if (timerComponent) {
@@ -90,9 +90,12 @@
         <div class="info">
             <Info bind:game />
         </div>
-        <div class="question" bind:this={questionComponent}>
-            <QuestionDisplay bind:question={currentQuestion.content} bind:questionWidth={questionWidth}></QuestionDisplay>
-            <!--<span bind:this={questionText} style="transform:scale({scale})">{currentQuestion.content}</span>-->
+        <div class="question" bind:this={questionComponent} bind:clientWidth={questionWidth} bind:clientHeight={questionHeight}>
+            <QuestionDisplay
+                bind:question={currentQuestion.content}
+                bind:containerWidth={questionWidth}
+                bind:containerHeight={questionHeight}
+                ></QuestionDisplay>
         </div>
         <div class="options">
             <Options bind:currentQuestion on:answer={answered} bind:this={optionsComponent} />
@@ -118,6 +121,9 @@
             position: relative;
             font-weight: bold;
             flex: 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .options {
