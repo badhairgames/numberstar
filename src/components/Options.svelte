@@ -27,6 +27,16 @@
         game.options.difficulty = Difficulty.medium;
         dispatch('play');
     }
+
+    function numberSelected() {
+        numbers = numbers;
+    }
+
+    function operatorSelected() {
+        operators = operators;
+    }
+
+    $: validchoice = numbers?.length > 0 && operators?.length > 0;
 </script>
 
 <BackButton on:back={() => dispatch('back')}></BackButton>
@@ -34,10 +44,33 @@
 {#if game.options.mode !== GameMode.practice}
     <DifficultyButtons bind:game on:difficulty={chooseDifficulty} />
 {:else}
-    <NumberChooser bind:numbers />
-    <OperatorChooser bind:operators />
-    <StandardButton text="Practice" on:click={practiceClick}></StandardButton>
+    <div class="container">
+        <div class="numbers"><NumberChooser bind:numbers on:select={numberSelected} /></div>
+        <div class="operators"><OperatorChooser bind:operators on:select={operatorSelected} /></div>
+        <div class="button"><StandardButton text="Practice" on:click={practiceClick} disabled={!validchoice}></StandardButton></div>
+    </div>
 {/if}
 
 <style lang="scss">
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100vh;
+
+        .numbers {
+            flex: 4;
+            padding: 1em;
+        }
+
+        .operators {
+            flex: 1;
+            padding: 1em;
+        }
+
+        .button {
+            flex: 1;
+            padding: 1em;
+        }
+    }
 </style>

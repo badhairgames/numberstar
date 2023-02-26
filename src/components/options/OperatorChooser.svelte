@@ -1,6 +1,8 @@
 <script lang="ts">
+    import { createEventDispatcher } from "svelte";
     import RoundButton from "../buttons/RoundButton.svelte";
     export let operators: string[] = [];
+    const dispatch = createEventDispatcher();
 
     function updateValues(event) {
         const selected = event.detail.selected;
@@ -14,6 +16,8 @@
                 operators.splice(index, 1);
             }
         }
+
+        dispatch('select', { operator: value });
     }
 </script>
 
@@ -26,7 +30,8 @@
 
 <style lang="scss">
     .container {
-        margin-top: 1em;
+        width: 80%;
+        margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
