@@ -22,10 +22,10 @@
 </script>
 
 <div class="container">
-    <RoundButton text="+" keyCode="49" width="22%" on:select={updateValues}></RoundButton>
-    <RoundButton text="-" keyCode="50" width="22%" on:select={updateValues}></RoundButton>
-    <RoundButton text="×" keyCode="51" width="22%" on:select={updateValues}></RoundButton>
-    <RoundButton text="÷" keyCode="52" width="22%" on:select={updateValues}></RoundButton>
+    <RoundButton text="+" keyCode="49" class="btn" on:select={updateValues}></RoundButton>
+    <RoundButton text="-" keyCode="50" class="btn" on:select={updateValues}></RoundButton>
+    <RoundButton text="×" keyCode="51" class="btn" on:select={updateValues}></RoundButton>
+    <RoundButton text="÷" keyCode="52" class="btn" on:select={updateValues}></RoundButton>
 </div>
 
 <style lang="scss">
@@ -36,5 +36,9 @@
         flex-wrap: wrap;
         justify-content: space-around;
         align-content: space-around;
+
+        :global(.btn) {
+            width: 22%;
+        }
     }
 </style>

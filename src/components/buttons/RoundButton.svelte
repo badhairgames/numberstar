@@ -1,6 +1,5 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    export let width = '30%';
     export let selected = false;
     export let text = '';
     export let keyCode = '0';
@@ -25,7 +24,8 @@
 <div
     on:click={process}
     on:keyup={onKeyDown}
-    style="width: {width}; {selected ? 'background: ' + selectedColour + '; ' : ''}"
+    class={$$props.class}
+    style="{selected ? 'background: ' + selectedColour + '; ' : ''}"
 >
     <span>{text}</span>
 </div>

@@ -59,7 +59,7 @@
         <RoundButton
             text={choice.toString()}
             keyCode="{(49 + i).toString()}"
-            width="22%"
+            class="btn"
             selected={buttonSelection[i]}
             selectedColour={buttonColours[i]}
             on:select={selectAnswer}
@@ -75,5 +75,9 @@
         flex-wrap: wrap;
         justify-content: space-around;
         align-content: space-around;
+
+        :global(.btn) {
+            width: 22%;
+        }
     }
 </style>
