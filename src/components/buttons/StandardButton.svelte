@@ -16,7 +16,7 @@
     button {
         width: 100%;
         text-transform: uppercase;
-        border-radius: 1em;
+        border-radius: 0.5em;
 
         &:disabled {
             opacity: 0.5;
