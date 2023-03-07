@@ -10,7 +10,7 @@
     }
 </script>
 
-<button on:click={clickHandler} disabled='{disabled}'>{text}</button>
+<button on:click={clickHandler} disabled='{disabled}' class={$$props.class}>{text}</button>
 
 <style lang="scss">
     button {

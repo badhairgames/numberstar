@@ -38,28 +38,34 @@
     <h1>numberSTAR</h1>
 
     <ul>
-        <li><StandardButton text="Play" on:click={() => dispatch('options', { gameType: GameMode.standard })} /></li>
-        <li><StandardButton text="Timed" on:click={() => dispatch('options', { gameType: GameMode.timed })} /></li>
-        <li><StandardButton text="Practice" on:click={() => dispatch('options', { gameType: GameMode.practice })} /></li>
+        <li><StandardButton text="Play" on:click={() => dispatch('options', { gameType: GameMode.standard })} class="gameOptionBtn" /></li>
+        <li><StandardButton text="Timed" on:click={() => dispatch('options', { gameType: GameMode.timed })} class="gameOptionBtn" /></li>
+        <li><StandardButton text="Practice" on:click={() => dispatch('options', { gameType: GameMode.practice })} class="gameOptionBtn" /></li>
     </ul>
 </div>
 
 <style lang="scss">
     .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
+        display: grid;
+        grid-template-columns: 1;
+        grid-template-rows: [utils] 30px [logo] 100px [buttons] auto;
         height: 99vh;
         margin: auto 0;
 
         .utility {
-
-            display: flex;
-            justify-content: space-between;
-            flex-grow: 1;
+            grid-row: utils;
 
             button {
+                position: absolute;
                 background: transparent;
+
+                &:first-child {
+                    left: 0.5em;
+                }
+
+                &:last-child {
+                    right: 0.5em;
+                }
 
                 .svg-icon {
                     fill: #777;
@@ -75,18 +81,22 @@
         }
 
         h1 {
-            flex-grow: 4;
+            grid-row: logo;
         }
 
         ul {
-            flex-grow: 4;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-content: space-around;
+            grid-row: buttons;
+            display: grid;
+            grid-template-rows: 30% 30% 30%;
 
             li {
-                flex: 1;
+                   display: grid;
+
+                   :global(.gameOptionBtn) {
+                    height: 50%;
+                    justify-self: center;
+                    align-self: center;
+                }
             }
         }
     }
