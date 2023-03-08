@@ -48,29 +48,29 @@
     .container {
         display: grid;
         grid-template-columns: 1;
-        grid-template-rows: [utils] 30px [logo] 100px [buttons] auto;
-        height: 99vh;
-        margin: auto 0;
+        grid-template-rows: [utils] 8% [logo] 14% [buttons] auto;
+        height: 100%;
+        margin: 0;
 
         .utility {
             grid-row: utils;
+            display: relative;
 
             button {
-                position: absolute;
                 background: transparent;
+                height: 100%;
 
                 &:first-child {
-                    left: 0.5em;
+                    float: left;
                 }
 
                 &:last-child {
-                    right: 0.5em;
+                    float: right;
                 }
 
                 .svg-icon {
                     fill: #777;
-                    height: 2em;
-                    width: 2em;
+                    height: 100%;
 
                     &:hover {
                         fill: #0d6fa7;
@@ -82,6 +82,9 @@
 
         h1 {
             grid-row: logo;
+            display: relative;
+            align-self: center;
+            margin: 0;
         }
 
         ul {
@@ -101,21 +104,20 @@
         }
     }
 
-    @media only screen and (orientation: landscape)
+    @media only screen
+        and (orientation: landscape)
+        and (max-width: 801px)
     {
         .container {
-            .utility {
-                flex-grow: 0;
-            }
-
-            h1 {
-                flex-grow: 0;
-            }
+            grid-template-rows: [utils] 18% [logo] 25% [buttons] auto;
 
             ul {
-                flex-grow: 2;
+                grid-template-rows: 30% 30% 30%;
 
                 li {
+                    :global(.gameOptionBtn) {
+                        height: 80%;
+                    }
                 }
             }
         }

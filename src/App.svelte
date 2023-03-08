@@ -48,6 +48,7 @@
 	main {
         position: relative;
 		text-align: center;
+        height: 100%;
 		padding: 0 1em;
 		margin: 0 auto;
         overflow: hidden;
