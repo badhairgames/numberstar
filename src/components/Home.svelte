@@ -90,15 +90,15 @@
         ul {
             grid-row: buttons;
             display: grid;
-            grid-template-rows: 30% 30% 30%;
+            grid-template-rows: 50% 20% 20%;
 
             li {
                    display: grid;
 
                    :global(.gameOptionBtn) {
-                    height: 50%;
-                    justify-self: center;
-                    align-self: center;
+                        height: 90%;
+                        justify-self: center;
+                        align-self: center;
                 }
             }
         }
@@ -112,9 +112,17 @@
             grid-template-rows: [utils] 18% [logo] 25% [buttons] auto;
 
             ul {
-                grid-template-rows: 30% 30% 30%;
+                grid-template-rows: [row1] 50% [row2] 40%;
+                column-gap: 1em;
 
                 li {
+                    grid-row: row2;
+
+                    &:first-child {
+                        grid-row: row1;
+                        grid-column: 1 / span 2;
+                    }
+
                     :global(.gameOptionBtn) {
                         height: 80%;
                     }
