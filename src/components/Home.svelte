@@ -99,7 +99,7 @@
                         height: 90%;
                         justify-self: center;
                         align-self: center;
-                }
+                    }
             }
         }
     }

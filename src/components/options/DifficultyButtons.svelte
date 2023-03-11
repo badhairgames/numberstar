@@ -53,8 +53,19 @@
     }
 
     ul {
-        li {
-            padding-bottom: 1em;
+        display: grid;
+        grid-template-columns: 1;
+        grid-template-rows: 4;
+        gap: 0.5em;
+    }
+
+    @media only screen
+        and (orientation: landscape)
+        and (max-width: 801px)
+    {
+        ul {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 2;
         }
     }
 </style>
