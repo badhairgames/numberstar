@@ -30,15 +30,8 @@
 
 <style lang="scss">
     .container {
-        width: 80%;
-        margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-content: space-around;
-
-        :global(.btn) {
-            width: 22%;
-        }
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 0.5em;
     }
 </style>

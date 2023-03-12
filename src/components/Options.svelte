@@ -53,24 +53,36 @@
 
 <style lang="scss">
     .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100vh;
+        display: grid;
+        grid-template-rows: 60% 20% 20%;
+        grid-template-columns: 100%;
+        justify-content: center;
+        align-content: center;
+        gap: 0.5em;
+        padding: 1em 0;
+        height: 90%;
+    }
 
-        .numbers {
-            flex: 4;
-            padding: 1em;
-        }
+    @media only screen
+        and (orientation: landscape)
+        and (max-width: 801px)
+    {
+        .container {
+            grid-template-rows: [row1] 65%  [row2] 35%;
+            grid-template-columns: 60% 40%;
 
-        .operators {
-            flex: 1;
-            padding: 1em;
-        }
+            .numbers {
+                grid-row: row1;
+                grid-column: 1 / span 2;
+            }
 
-        .button {
-            flex: 1;
-            padding: 1em;
+            .operators {
+                grid-row: row2;
+            }
+
+            .button {
+                grid-row: row2;
+            }
         }
     }
 </style>

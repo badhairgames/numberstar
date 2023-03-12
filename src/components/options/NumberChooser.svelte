@@ -38,15 +38,19 @@
 
 <style lang="scss">
     .container {
-        width: 80%;
-        margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-content: space-around;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        gap: 0.5em;
+    }
 
-        :global(.btn) {
-            width: 15%;
+    @media only screen
+        and (orientation: landscape)
+        and (max-width: 801px)
+    {
+        .container {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
         }
     }
 </style>
