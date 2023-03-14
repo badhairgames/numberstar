@@ -41,7 +41,8 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr 1fr;
-        gap: 0.5em;
+        height: 100%;
+        column-gap: 0.5em;
     }
 
     @media only screen

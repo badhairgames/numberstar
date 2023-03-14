@@ -54,13 +54,26 @@
 <style lang="scss">
     .container {
         display: grid;
-        grid-template-rows: 60% 20% 20%;
+        grid-template-rows: 3fr 2fr 2fr;
         grid-template-columns: 100%;
         justify-content: center;
         align-content: center;
         gap: 0.5em;
         padding: 1em 0;
         height: 90%;
+
+        .numbers {
+            height: 100%;
+        }
+
+        .operators {
+            display: grid;
+        }
+
+        .button {
+            display: grid;
+            padding: 10% 0;
+        }
     }
 
     @media only screen

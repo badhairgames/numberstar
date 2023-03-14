@@ -33,5 +33,10 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         gap: 0.5em;
+
+        :global(.btn) {
+            align-self: center;
+            justify-content: center;
+        }
     }
 </style>
