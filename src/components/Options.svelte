@@ -39,7 +39,10 @@
     $: validchoice = numbers?.length > 0 && operators?.length > 0;
 </script>
 
-<BackButton on:back={() => dispatch('back')}></BackButton>
+<div class="outerContainer">
+    <div class="controls">
+        <BackButton on:back={() => dispatch('back')}></BackButton>
+    </div>
 
 {#if game.options.mode !== GameMode.practice}
     <DifficultyButtons bind:game on:difficulty={chooseDifficulty} />
@@ -50,17 +53,28 @@
         <div class="button"><StandardButton text="Practice" on:click={practiceClick} disabled={!validchoice}></StandardButton></div>
     </div>
 {/if}
+</div>
+
 
 <style lang="scss">
+    .outerContainer {
+        display: grid;
+        grid-template-rows: 0.5fr 9fr;
+        grid-template-columns: 100%;
+
+        .controls {
+            display: grid;
+        }
+    }
+
     .container {
         display: grid;
-        grid-template-rows: 3fr 2fr 2fr;
+        grid-template-rows: 4fr 1fr 1fr;
         grid-template-columns: 100%;
         justify-content: center;
         align-content: center;
         gap: 0.5em;
         padding: 1em 0;
-        height: 90%;
 
         .numbers {
             height: 100%;
