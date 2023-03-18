@@ -39,76 +39,101 @@
     $: validchoice = numbers?.length > 0 && operators?.length > 0;
 </script>
 
-<div class="outerContainer">
+<div class="container">
     <div class="controls">
-        <BackButton on:back={() => dispatch('back')}></BackButton>
+        <BackButton on:back={() => dispatch('back')} />
     </div>
 
-{#if game.options.mode !== GameMode.practice}
-    <DifficultyButtons bind:game on:difficulty={chooseDifficulty} />
-{:else}
-    <div class="container">
-        <div class="numbers"><NumberChooser bind:numbers on:select={numberSelected} /></div>
-        <div class="operators"><OperatorChooser bind:operators on:select={operatorSelected} /></div>
-        <div class="button"><StandardButton text="Practice" on:click={practiceClick} disabled={!validchoice}></StandardButton></div>
-    </div>
-{/if}
+    {#if game.options.mode !== GameMode.practice}
+        <div class="difficultyButtons">
+            <DifficultyButtons bind:game on:difficulty={chooseDifficulty} />
+        </div>
+    {:else}
+        <div class="numbers"><NumberChooser bind:numbers on:select={numberSelected} class="numberButtons" /></div>
+        <div class="operators"><OperatorChooser bind:operators on:select={operatorSelected} class="operatorButtons" /></div>
+        <div class="button">
+            <StandardButton text="Practice" on:click={practiceClick} disabled={!validchoice} />
+        </div>
+    {/if}
 </div>
 
-
 <style lang="scss">
-    .outerContainer {
+    .container {
         display: grid;
-        grid-template-rows: 0.5fr 9fr;
-        grid-template-columns: 100%;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 4fr 1fr 1fr;
+        height: 100vh;
 
         .controls {
             display: grid;
+            justify-content: center;
+            align-content: center;
         }
-    }
 
-    .container {
-        display: grid;
-        grid-template-rows: 4fr 1fr 1fr;
-        grid-template-columns: 100%;
-        justify-content: center;
-        align-content: center;
-        gap: 0.5em;
-        padding: 1em 0;
+        .difficultyButtons {
+            grid-row: 1 / span 3;
+        }
 
         .numbers {
-            height: 100%;
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2vmin;
+            justify-items: center;
+            align-items: center;
+
+            :global(.numberButtons) {
+                display: grid;
+                width: 29vmin;
+                height: 29vmin;
+                font-size: 15vmin;
+                font-weight: bold;
+                letter-spacing: -1vmin;
+                text-indent: -1vmin;
+                justify-content: center;
+                align-content: center;
+            }
         }
 
         .operators {
             display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 2vmin;
+            justify-items: center;
+            align-items: center;
+
+            :global(.operatorButtons) {
+                display: grid;
+                width: 21vmin;
+                height: 21vmin;
+                font-size: 12vmin;
+                font-weight: bold;
+                justify-content: center;
+                align-content: center;
+            }
         }
 
         .button {
             display: grid;
-            padding: 10% 0;
+            justify-content: center;
+            align-content: center;
         }
     }
 
-    @media only screen
-        and (orientation: landscape)
-        and (max-width: 801px)
-    {
+    @media only screen and (orientation: landscape) and (max-width: 801px) {
         .container {
-            grid-template-rows: [row1] 65%  [row2] 35%;
-            grid-template-columns: 60% 40%;
+            // grid-template-rows: [row1] 65% [row2] 35%;
+            // grid-template-columns: 60% 40%;
 
             .numbers {
-                grid-row: row1;
-                grid-column: 1 / span 2;
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
             }
 
             .operators {
-                grid-row: row2;
             }
 
             .button {
-                grid-row: row2;
             }
         }
     }

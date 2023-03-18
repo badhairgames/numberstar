@@ -33,25 +33,11 @@
 <style lang="scss">
         div {
             position: relative;
-            margin-bottom: 3%;
             border-radius: 50%;
             background: #0d6fa7;
             color: #ffffff;
             cursor: pointer;
             user-select: none;
-
-            span {
-                position: absolute;
-                font-weight: bold;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-
-            &::before {
-                content: '';
-                float: left;
-                padding-top: 100%;
-            }
+            -webkit-tap-highlight-color: transparent;
         }
 </style>

@@ -21,22 +21,10 @@
     }
 </script>
 
-<div class="container">
-    <RoundButton text="+" keyCode="49" class="btn" on:select={updateValues}></RoundButton>
-    <RoundButton text="-" keyCode="50" class="btn" on:select={updateValues}></RoundButton>
-    <RoundButton text="×" keyCode="51" class="btn" on:select={updateValues}></RoundButton>
-    <RoundButton text="÷" keyCode="52" class="btn" on:select={updateValues}></RoundButton>
-</div>
+<RoundButton text="+" keyCode="49" class={$$props.class} on:select={updateValues}></RoundButton>
+<RoundButton text="-" keyCode="50" class={$$props.class} on:select={updateValues}></RoundButton>
+<RoundButton text="×" keyCode="51" class={$$props.class} on:select={updateValues}></RoundButton>
+<RoundButton text="÷" keyCode="52" class={$$props.class} on:select={updateValues}></RoundButton>
 
 <style lang="scss">
-    .container {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        gap: 0.5em;
-
-        :global(.btn) {
-            align-self: center;
-            justify-content: center;
-        }
-    }
 </style>
