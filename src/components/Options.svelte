@@ -58,10 +58,11 @@
 </div>
 
 <style lang="scss">
+    // Default layout: Portrait device, mobile.
     .container {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 4fr 1fr 1fr;
+        grid-template-rows: 10vh 50vh 20vh 20vh;
         height: 100vh;
 
         .controls {
@@ -78,15 +79,15 @@
             display: grid;
             grid-template-rows: 1fr 1fr 1fr 1fr;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 2vmin;
+            gap: 1vh;
             justify-items: center;
             align-items: center;
 
             :global(.numberButtons) {
                 display: grid;
-                width: 29vmin;
-                height: 29vmin;
-                font-size: 15vmin;
+                width: 11.5vh;
+                height: 11.5vh;
+                font-size: 7vh;
                 font-weight: bold;
                 letter-spacing: -1vmin;
                 text-indent: -1vmin;
@@ -98,15 +99,15 @@
         .operators {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 2vmin;
+            gap: 1vh;
             justify-items: center;
             align-items: center;
 
             :global(.operatorButtons) {
                 display: grid;
-                width: 21vmin;
-                height: 21vmin;
-                font-size: 12vmin;
+                width: 10vh;
+                height: 10vh;
+                font-size: 6vh;
                 font-weight: bold;
                 justify-content: center;
                 align-content: center;
@@ -115,8 +116,28 @@
 
         .button {
             display: grid;
-            justify-content: center;
             align-content: center;
+        }
+    }
+
+    // Tall portrait devices
+    @media only screen and (max-aspect-ratio: 300 / 600) {
+        .container {
+            .numbers {
+                :global(.numberButtons) {
+                    width: 25vw;
+                    height: 25vw;
+                    font-size: 18vw;
+                }
+            }
+
+            .operators {
+                :global(.operatorButtons) {
+                    width: 18vw;
+                    height: 18vw;
+                    font-size: 12vw;
+                }
+            }
         }
     }
 
