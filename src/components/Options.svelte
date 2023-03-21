@@ -141,21 +141,50 @@
         }
     }
 
-    @media only screen and (orientation: landscape) and (max-width: 801px) {
+    // Landscape Devices
+    @media only screen and (orientation: landscape) {
         .container {
-            // grid-template-rows: [row1] 65% [row2] 35%;
-            // grid-template-columns: 60% 40%;
+            grid-template-columns: 1fr;
+            grid-template-rows: 10vh 50vh 20vh 20vh;
 
             .numbers {
                 grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
                 grid-template-rows: 1fr 1fr;
+                :global(.numberButtons) {
+                    width: 22vh;
+                    height: 22vh;
+                    font-size: 16vh;
+                }
             }
-
+            
             .operators {
-            }
-
-            .button {
+                :global(.operatorButtons) {
+                    width: 18vh;
+                    height: 18vh;
+                    font-size: 12vh;
+                }
             }
         }
     }
+
+    // Landscape Devices
+    // @media only screen and (max-aspect-ratio: 600 / 300) {
+    //     .container {
+    //         .numbers {
+    //             :global(.numberButtons) {
+    //                 width: 22vh;
+    //                 height: 22vh;
+    //                 font-size: 16vh;
+    //             }
+    //         }
+
+    //         .operators {
+    //             :global(.operatorButtons) {
+    //                 width: 18vh;
+    //                 height: 18vh;
+    //                 font-size: 12vh;
+    //             }
+    //         }
+    //     }
+    // }
 </style>
