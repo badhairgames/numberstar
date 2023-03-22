@@ -45,11 +45,12 @@
 </div>
 
 <style lang="scss">
+    // Default layout: Portrait device, mobile.
     .container {
         display: grid;
         grid-template-columns: 1;
-        grid-template-rows: [utils] 8% [logo] 14% [buttons] auto;
-        height: 100%;
+        grid-template-rows: [utils] 10vh [logo] 14vh [buttons] 76vh;
+        height: 100vh;
         margin: 0;
 
         .utility {
@@ -82,6 +83,7 @@
 
         h1 {
             grid-row: logo;
+            font-size: 12vw;
             display: relative;
             align-self: center;
             margin: 0;
@@ -104,9 +106,10 @@
         }
     }
 
+    // Landscape Devices
     @media only screen
         and (orientation: landscape)
-        and (max-width: 801px)
+        and (max-width: 1000px)
     {
         .container {
             grid-template-rows: [utils] 18% [logo] 25% [buttons] auto;
@@ -127,6 +130,18 @@
                         height: 80%;
                     }
                 }
+            }
+        }
+    }
+
+    // Landscape device, desktop.
+    @media only screen
+        and (orientation: landscape)
+        and (min-width: 1001px)
+    {
+        .container {
+            h1 {
+                font-size: 80px;
             }
         }
     }
