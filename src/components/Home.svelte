@@ -49,8 +49,8 @@
     .container {
         display: grid;
         grid-template-columns: 1;
-        grid-template-rows: [utils] 10vh [logo] 14vh [buttons] 76vh;
-        height: 100vh;
+        grid-template-rows: [utils] 10% [logo] 14% [buttons] 76%;
+        height: 100%;
         margin: 0;
 
         .utility {

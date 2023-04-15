@@ -1,7 +1,6 @@
 <script lang="ts">
     import DifficultyButtons from './options/DifficultyButtons.svelte';
     import { createEventDispatcher } from 'svelte';
-    import type { GameOptions } from '../models/gameOptions';
     import { GameMode } from '../enums/gameMode';
     import NumberChooser from './options/NumberChooser.svelte';
     import OperatorChooser from './options/OperatorChooser.svelte';
@@ -62,8 +61,8 @@
     .container {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 10vh 50vh 20vh 20vh;
-        height: 100vh;
+        grid-template-rows: 10% 50% 20% 20%;
+        height: 100%;
 
         .controls {
             display: grid;
