@@ -77,7 +77,12 @@
         align-content: space-around;
 
         :global(.btn) {
-            width: 22%;
+            cursor: pointer;
+            font-size: 1em;
+            height: 3em;
+            line-height: 3em;
+            text-align: center;
+            width: 3em;
         }
     }
 </style>
