@@ -39,8 +39,7 @@
     {:else if state === State.play }
         <Play bind:game on:gameover={gameOver} />
     {:else if state === State.gameover }
-        <GameOver bind:game />
-        <button on:click={() => changeState(State.home)}>Home</button>
+        <GameOver bind:game on:home={() => changeState(State.home)} />
     {/if}
 </main>
 
